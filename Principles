@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Principles of Research Ethics with Human and Animal Subjects</title>
+    <!-- Tailwind CSS CDN for basic utilities and a clean look -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif; /* Using Inter font, falls back to sans-serif */
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        .main-content-container {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 1.5rem;
+            max-width: 800px;
+            width: 100%;
+        }
+        h1 {
+            font-size: 2.25rem; /* text-4xl */
+            font-weight: 700; /* font-bold */
+            color: #1a202c; /* gray-900 */
+            margin-bottom: 1.5rem; /* mb-6 */
+        }
+        h2 {
+            font-size: 1.75rem; /* text-3xl */
+            font-weight: 600; /* font-semibold */
+            color: #2d3748; /* gray-800 */
+            margin-top: 2rem; /* mt-8 */
+            margin-bottom: 1rem; /* mb-4 */
+        }
+        h3 {
+            font-size: 1.25rem; /* text-xl */
+            font-weight: 600; /* font-semibold */
+            color: #2d3748; /* gray-800 */
+            margin-top: 1.5rem; /* mt-6 */
+            margin-bottom: 0.75rem; /* mb-3 */
+        }
+        p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            color: #4a5568; /* gray-700 */
+        }
+        ul {
+            list-style-type: disc;
+            padding-left: 24px;
+            margin-bottom: 1rem;
+        }
+        strong {
+            font-weight: 700;
+        }
+
+        /* Case Study Details/Accordion Styling */
+        .case-study-details {
+            margin-bottom: 1rem;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            border: 1px solid #e2e8f0; /* gray-200 */
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        }
+        .case-study-details summary {
+            padding: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            list-style: none; /* Remove default marker */
+            background-color: #edf2f7; /* gray-100 */
+            color: #2d3748; /* gray-800 */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s ease;
+        }
+        .case-study-details summary:hover {
+            background-color: #e2e8f0; /* gray-200 */
+        }
+        .case-study-details summary::after {
+            content: '+';
+            font-size: 1.2rem;
+            color: #4a5568; /* gray-700 */
+            transition: transform 0.3s ease;
+        }
+        .case-study-details[open] summary::after {
+            content: '-';
+            transform: rotate(0deg);
+        }
+        .case-study-details .case-content {
+            padding: 1rem;
+            background-color: #ffffff;
+            border-top: 1px solid #e2e8f0;
+            color: #4a5568;
+        }
+        .case-content ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin-bottom: 0; /* Remove extra margin if last element */
+        }
+
+        /* Confidence Rating Section Styling */
+        #confidence-rating-section {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        .category-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .category-button {
+            padding: 10px 18px;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: 2px solid;
+            transition: all 0.2s ease;
+        }
+        /* Default button styles */
+        #btn-confident { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
+        #btn-need-info { border-color: #f59e0b; background-color: #fffbeb; color: #92400e; }
+        #btn-new-topic { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
+
+        /* Active button styles */
+        #btn-confident.active { background-color: #22c55e; color: white; }
+        #btn-need-info.active { background-color: #f59e0b; color: white; }
+        #btn-new-topic.active { background-color: #ef4444; color: white; }
+
+        #statement-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 1rem;
+        }
+        .statement-item {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s ease;
+            position: relative; /* For absolute positioning of label if needed */
+        }
+        .statement-item:hover {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .category-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 0.25rem;
+            margin-left: 10px;
+            white-space: nowrap; /* Prevent text wrapping */
+        }
+        /* Category specific styles for statements */
+        .statement-confident { background-color: #dcfce7; border-color: #86efac; }
+        .statement-confident .category-label { background-color: #22c55e; color: white; }
+
+        .statement-need-info { background-color: #fffdf0; border-color: #fde68a; }
+        .statement-need-info .category-label { background-color: #f59e0b; color: white; }
+
+        .statement-new-topic { background-color: #fff5f5; border-color: #fca5a5; }
+        .statement-new-topic .category-label { background-color: #ef4444; color: white; }
+
+        .note-text {
+            font-size: 0.875rem; /* text-sm */
+            color: #6b7280; /* gray-500 */
+            margin-top: 1.5rem;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="main-content-container">
+        <h1>Principles of research ethics with human and animal subjects</h1>
+
+        <p>Research that uses animals or humans as subjects is key for the advancement of many disciplines. For example, testing newly developed drugs on animals tells us whether the drugs will be safe to test on humans. However, it is the responsibility of the researcher to ensure that animal and human subjects are treated with respect, and to prevent unnecessary suffering.</p>
+
+        <p class="mt-6 mb-4 text-gray-700">Read about a controversial case using human subjects. Click on each section to find out more.</p>
+        <div style="background-color: #e0f2fe; border-left: 4px solid #38bdf8; padding: 0.75rem; margin-top: 1rem; margin-bottom: 1.5rem; border-radius: 0.375rem; color: #0c4a6e;">
+            <p>Continue on to learn about a controversial case using human subjects.</p>
+        </div>
+
+
+        <!-- Facebook Case Study - Accordion Sections -->
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Facebook's emotional contagion project</h2>
+        <p class="mb-4 text-gray-700">In January 2012 Facebook conducted a massive experiment involving 689,003 of its users to test whether the emotional content users receive into their newsfeed influences their emotional state.</p>
+
+        <details class="case-study-details" open>
+            <summary>How was it done?</summary>
+            <div class="case-content">
+                <p>Facebook controlled the frequency of posts with negative or positive content that the research subjects (Facebook users) saw in their Facebook feed. They did this by hiding certain posts from the newsfeed. The subjects were divided in three groups:</p>
+                <ul>
+                    <li><strong>Negativity reduced:</strong> some negative posts were hidden</li>
+                    <li><strong>Positivity reduced:</strong> some positive posts were hidden</li>
+                    <li><strong>Control:</strong> randomly selected posts were hidden</li>
+                </ul>
+                <p>The results showed that emotion is contagious since the negativity-reduced group used fewer negative words in their own posts; conversely, the positivity-reduced group used fewer positive words in their own posts.</p>
+            </div>
+        </details>
+
+        <details class="case-study-details">
+            <summary>Controversy arises</summary>
+            <div class="case-content">
+                <p>The study was published in the <em>Proceedings of the National Academy of Sciences (PNAS)</em> in 2014 (Kramer et al., 2014). It immediately became the center of media attention, not only because of the findings, but because the research participants (Facebook users) had not been explicitly informed about the research or asked to consent to participate as research subjects for the project. That is, Facebook hid posts from their newsfeeds without them knowing this was happening.</p>
+            </div>
+        </details>
+
+        <details class="case-study-details">
+            <summary>Facebook's response</summary>
+            <div class="case-content">
+                <p>Facebook responded that they stood by a statement included in the paper: "[The work] was consistent with Facebook's Data Use Policy, to which all users agree prior to creating an account on Facebook, constituting informed consent for this research" (Kramer et al., 2014)</p>
+            </div>
+        </details>
+
+        <details class="case-study-details">
+            <summary>Response from the journal editor</summary>
+            <div class="case-content">
+                <p>The <em>PNAS</em> editor responded by publishing an <em>Editorial expression of concern</em> stating that although Facebook, as a private company, is not bound by the "Common Rule" (governmental regulations for human subject research), it is still problematic that Facebook does not follow standard practices of informed and voluntary consent when conducting experiments (Verma, 2014).</p>
+            </div>
+        </details>
+
+        <details class="case-study-details">
+            <summary>Response from the research community</summary>
+            <div class="case-content">
+                <p>Many academic institutions and professional organizations have developed their own guidelines for internet-based research. The Office of Human Research Protections of the U.S. Department of Health & Human Services published a list of recommendations for internet-based research (SACHRP, 2013). However, as of 2017, there is still a lack of national or international standards that apply to research conducted by private companies.</p>
+                <p>The constant development of new technologies opens new ways to conduct research but also poses new challenges to ensure the protection of research subjects.</p>
+            </div>
+        </details>
+
+        <p class="mt-8 mb-4">Many different disciplines work directly or indirectly with animal or human subjects. Even if your discipline does not use animal or human subjects, we all benefit from this type of research, and you might even find yourself participating in a research project as a human subject. Thus, being informed about the ethical treatment of human and animals in research is relevant to everyone.</p>
+
+        <!-- Confidence Rating Activity -->
+        <div id="confidence-rating-section">
+            <h3 class="mb-4">Rate the statements based on your level of confidence of your knowledge on the topic.</h3>
+            <p>Rate what you consider to be your level of confidence of your knowledge on each topic.</p>
+
+            <div class="category-buttons">
+                <button id="btn-confident" class="category-button">Confident</button>
+                <button id="btn-need-info" class="category-button">Need more information</button>
+                <button id="btn-new-topic" class="category-button">New topic</button>
+            </div>
+
+            <ul id="statement-list">
+                <li class="statement-item" data-id="s1">I know the office at my institution that regulates the use of animals in research. <span class="category-label"></span></li>
+                <li class="statement-item" data-id="s2">I know the office at my institution that regulates the use of human subjects in research. <span class="category-label"></span></li>
+                <li class="statement-item" data-id="s3">I can describe the ethical principles of work with animal subjects. <span class="category-label"></span></li>
+                <li class="statement-item" data-id="s4">I can describe the ethical principles of work with human subjects. <span class="category-label"></span></li>
+                <li class="statement-item" data-id="s5">I am conducting research with animal subjects. <span class="category-label"></span></li>
+                <li class="statement-item" data-id="s6">I am conducting research with human subjects. <span class="category-label"></span></li>
+                <li class="statement-item" data-id="s7">I have received training for work with animal subjects. <span class="category-label"></span></li>
+                <li class="statement-item" data-id="s8">I have received training for work with human subjects. <span class="category-label"></span></li>
+            </ul>
+            <p class="note-text">If you are not entirely confident about the appropriate ethics and regulations guiding use of animals or human subjects in research, you will be able to gain more information about these topics throughout this module.</p>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const categoryButtons = document.querySelectorAll('.category-button');
+            const statementItems = document.querySelectorAll('.statement-item');
+            let activeCategory = null; // Stores the currently selected category ('confident', 'need-info', 'new-topic')
+
+            // Function to reset all button active states
+            const resetCategoryButtons = () => {
+                categoryButtons.forEach(button => {
+                    button.classList.remove('active');
+                });
+            };
+
+            // Event listener for category buttons
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    resetCategoryButtons(); // Deactivate all buttons first
+                    button.classList.add('active'); // Activate clicked button
+                    activeCategory = button.id.replace('btn-', ''); // Set active category (e.g., 'confident')
+                });
+            });
+
+            // Event listener for statement items
+            statementItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    if (activeCategory) {
+                        // Remove previous category classes from the statement
+                        item.classList.remove('statement-confident', 'statement-need-info', 'statement-new-topic');
+
+                        // Add the new category class
+                        item.classList.add(`statement-${activeCategory}`);
+
+                        // Update the category label text and style
+                        const labelSpan = item.querySelector('.category-label');
+                        labelSpan.textContent = activeCategory.replace('-', ' ').replace(/\b\w/g, char => char.toUpperCase()); // Format to "Confident", "Need Information", etc.
+                        labelSpan.className = `category-label category-label-${activeCategory}`; // Add class for specific label styling if needed
+                    } else {
+                        // Optionally, alert the user to select a category first
+                        console.log('Please select a category first (Confident, Need more information, or New topic).');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
