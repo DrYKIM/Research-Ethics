@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<html data-programme="Research as a Transferable Skill" data-course="Integrity and ethical decision-making in research">
+
+	<head>
+		<title>Why is research integrity important? </title>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="stylesheet" type="text/css" href="../css/project.min.css">
+		<link id="basic-print" rel="stylesheet" type="text/css" href="../css/print.min.css" disabled>
+		<link id="summary-print" rel="stylesheet" type="text/css" href="../css/print_interactive.min.css">
+	</head>
+
+	<body>
+	  
+		<div id="app" v-cloak>
+			<base-container
+				screen-id="ied_1_10"
+				current-module = "Module 1: Research integrity"
+				page-title = "Why is research integrity important? "
+				screen-time = "3"
+				screen-time-period = "mins">
+
+				<page-container>
+
+					<page-row>
+						<page-content-main>
+							
+							<p>Advancement in any discipline is achieved by building on the work created by others; therefore it relies on the <strong>integrity</strong> of all researchers in the discipline. Unethical behaviors compromise the advancement of a discipline and could have harmful consequences for society.</p>
+							<p>Conducting research, scholarly, or creative activities with integrity means following the standards of integrity for the discipline. These standards include the obligation to honor the trust that colleagues and society put on the researcher/scholar so that your work advances the discipline in a way that benefits the field of study, and society as a whole. More importantly, these ethical principles will not only help you conduct your project with integrity, they can be transferred to other aspects of your professional and personal life and guide you to become an ethical and productive member of society.</p>
+							
+							<instructional-text><p>Click "Next" to read about a case of unethical behavior in research.</p></instructional-text>
+							<accessible-text><p>Continue on for a case study on unethical behavior in research.</p></accessible-text>
+							
+							<!-- ACTIVITY START -->
+							<process>
+								<process-page>
+									<h4>The paper</h4>
+									<p>In 2014 graduate student Michael LaCour and his supervisor Donald Green published a landmark paper on the journal <em>Science</em>. In this paper they claimed that interaction with a gay interviewer changed voters' attitudes toward gay marriage. These findings were remarkable and contradicted decades of research on the permanence of political beliefs.</p>
+								</process-page>
+								<process-page>
+									<h4>Failure to reproduce results</h4>
+									<p>Excited by LaCour's findings, UC-Berkeley graduate students David Broockman and Joshua Kalla were interested in reproducing the experiment, but as they dug deeper into the methodology, they began to find inconsistencies:</p>
+									<ul>
+										<li>According to LaCour, his team surveyed 10,000 subjects and paid $100 to each subject. This would amount to $1 million for the cost of the survey alone, an amount that LaCour did not have for his project.</li>
+										<li>Broockman and Kalla contacted the survey company that LaCour said he used for his study, but the company had no record of working with LaCour.</li>
+										<li>Since they didn't have the money to reproduce the study as LaCour described it, Broockman and Kalla decided to use an available political science data set. While conducting the analysis of this data set, they realized that it was remarkably similar to the data in LaCour's paper, except for a few data points.</li>
+									</ul>
+									<p>Based on these inconsistencies, Boockman and Kalla, joined by Peter Aronow, a young Assistant Professor, published a report of the irregularities in 2015.</p>
+								</process-page>
+								<process-page>
+									<h4>The consequences</h4>
+									<p>When confronted about the irregularities and asked to provide the original data, LaCour was unable to do so. He claimed that he deleted the original survey data, but an investigation found no evidence that the data was deleted, suggesting that the survey was never implemented. Based on the inconsistencies, LaCour's collaborator Douglas Green retracted the paper and apologized for his failing to verify the original data.</p>
+									<p>LaCour lost his faculty position at Princeton University.</p>
+									<br>
+									<p class="text-note">Broockman, Kalla & Aronow (2014); Retraction Watch (2015); Lin (2015).</p>
+								</process-page>
+							</process>
+							<!-- ACTIVITY END -->
+							
+							<p>One of the key ways to evaluate the trustworthiness of a discovery is to independently reproduce those results. This requires researchers to be honest and transparent about their methodology. Unethical behaviors can have severe consequences, not only for the offending person, but also because they can directly or indirectly harm colleagues, the discipline, and society. Conducting research with integrity is essential for advancing knowledge in all disciplines.</p>
+						
+						</page-content-main>
+					</page-row>
+					
+				</page-container>
+			</base-container>
+		</div> <!-- END content wrapper -->
+		
+		<!-- scripts -->
+		<script src="../js/vendor.min.js"></script>
+		<script src="../js/vue-components.min.js"></script>
+		<script>
+			new Vue({
+			  el: "#app",
+			  data: {},
+			  mounted: function () {
+				var core = document.createElement('script');
+				core.src = "../js/core.min.js";
+				document.getElementsByTagName('head')[0].appendChild(core);
+
+				var project = document.createElement('script');
+				project.src = "../js/project.min.js";
+				document.getElementsByTagName('head')[0].appendChild(project);
+			  }
+			});
+		</script>
+
+	</body>
+</html>
