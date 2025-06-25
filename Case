@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application of Research Ethics: Human and Animal Subjects</title>
+    <!-- Tailwind CSS CDN for basic utilities and a clean look -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif; /* Using Inter font, falls back to sans-serif */
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        .main-content-container {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 1.5rem;
+            max-width: 800px;
+            width: 100%;
+        }
+        h1 {
+            font-size: 2.25rem; /* text-4xl */
+            font-weight: 700; /* font-bold */
+            color: #1a202c; /* gray-900 */
+            margin-bottom: 1.5rem; /* mb-6 */
+        }
+        h2 {
+            font-size: 1.75rem; /* text-3xl */
+            font-weight: 600; /* font-semibold */
+            color: #2d3748; /* gray-800 */
+            margin-top: 2rem; /* mt-8 */
+            margin-bottom: 1rem; /* mb-4 */
+        }
+        h3 {
+            font-size: 1.25rem; /* text-xl */
+            font-weight: 600; /* font-semibold */
+            color: #2d3748; /* gray-800 */
+            margin-top: 1.5rem; /* mt-6 */
+            margin-bottom: 0.75rem; /* mb-3 */
+        }
+        p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            color: #4a5568; /* gray-700 */
+        }
+        ul {
+            list-style-type: disc;
+            padding-left: 24px;
+            margin-bottom: 1rem;
+        }
+        strong {
+            font-weight: 700;
+        }
+        em {
+            font-style: italic;
+        }
+
+        /* Case Scenario Styling */
+        .case-scenario-block {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .case-scenario-text {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1a202c;
+        }
+        .case-actions {
+            display: flex;
+            gap: 15px; /* Space between buttons */
+            margin-bottom: 1rem; /* Space before feedback */
+            justify-content: center; /* Center the buttons */
+        }
+        .action-button {
+            background-color: #e2e8f0; /* Light gray */
+            border: 1px solid #cbd5e1;
+            border-radius: 9999px; /* Fully rounded, like a circle or pill */
+            width: 48px; /* Fixed width */
+            height: 48px; /* Fixed height */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.5rem; /* Icon size */
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        .action-button:hover {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+        .action-button.check {
+            color: #10b981; /* Green check */
+            border-color: #10b981;
+        }
+        .action-button.cross {
+            color: #ef4444; /* Red cross */
+            border-color: #ef4444;
+        }
+        .action-button.check:hover { background-color: #dcfce7; }
+        .action-button.cross:hover { background-color: #fef2f2; }
+
+        /* Feedback styling */
+        .feedback-details {
+            margin-top: 1rem;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            border: 1px solid #a78bfa; /* violet-400 */
+        }
+        .feedback-details summary {
+            padding: 0.75rem 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            list-style: none; /* Remove default marker */
+            background-color: #ddd6fe; /* violet-200 */
+            color: #6d28d9; /* violet-700 */
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .feedback-details summary::after {
+            content: '»'; /* Custom marker for proceeding */
+            margin-left: 0.5rem;
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+        .feedback-details[open] summary::after {
+            transform: rotate(90deg);
+        }
+        .feedback-content-wrapper {
+            padding: 1rem;
+            background-color: #f5f3ff; /* violet-50 */
+            border-top: 1px solid #c4b5fd; /* violet-300 */
+            color: #5b21b6;
+        }
+        .feedback-text {
+            display: none; /* Hidden by default */
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+        .feedback-text.active {
+            display: block; /* Shown when active */
+        }
+        .feedback-text.correct-response {
+            font-weight: bold;
+            color: #10b981 !important; /* Green */
+        }
+        .feedback-text.incorrect-response {
+            font-style: italic;
+            color: #ef4444 !important; /* Red */
+        }
+
+        /* Continue link styling */
+        .continue-link-container {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        .continue-link {
+            display: inline-block;
+            background-color: #4f46e5;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+        }
+        .continue-link:hover {
+            background-color: #4338ca;
+        }
+
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="main-content-container">
+        <h1>Application of Research Ethics</h1>
+
+        <p>The application of research ethics in cases of human and animal subjects is essential to ensure the ethical treatment and minimization of harm for the subjects. Think about how you can apply research ethics principles to some real-life cases of projects involving human or animal subjects.</p>
+
+        <p class="mt-6 mb-4">Read the case scenario and select the "check" if you think the scenario follows the standards for ethical research, or select the "cross" if you think the scenario does not follow ethical standards.</p>
+
+        <p class="mb-4">Reflect on your choice, and then open the feedback to see if you are correct.</p>
+
+
+        <!-- Scenario 1: Hexamethonium -->
+        <div id="scenario-1" class="case-scenario-block">
+            <p class="case-scenario-text">A project seeking to understand asthma attacks recruited healthy volunteers to induce asthma attacks by inhalation of hexamethonium powder. Hexamethonium was approved by the Food & Drug Administration to treat hypertension in the 1960s but has never been tested for safety via inhalation.</p>
+            <div class="case-actions">
+                <button class="action-button check" data-scenario="s1" data-choice="ethical">✔</button>
+                <button class="action-button cross" data-scenario="s1" data-choice="unethical">✖</button>
+            </div>
+            <details id="feedback-s1" class="feedback-details">
+                <summary>Show Feedback</summary>
+                <div class="feedback-content-wrapper">
+                    <p id="s1-correct-feedback" class="feedback-text correct-response">
+                        Correct, because hexamethonium's safety via inhalation had not been tested, this project placed subjects under unknown risks. Unfortunately, this project was approved and conducted in 2001 at Johns Hopkins University and resulted in the death of Ellen Roche, a 24-year-old woman who volunteered as a participant. The IRB reviewing the project should have asked the researchers to provide evidence of the safety of hexamethonium as an inhalant before approving this project (Savulescu & Spriggs, 2002).
+                    </p>
+                    <p id="s1-incorrect-feedback" class="feedback-text incorrect-response">
+                        Incorrect. This project was conducted in 2001 at Johns Hopkins University and resulted in the death of Ellen Roche, a 24-year-old woman who volunteered as a participant. Because hexamethonium's safety via inhalation had not been tested, this project placed subjects under unknown risk. The IRB reviewing the project should have asked the researchers to provide evidence of the safety of hexamethonium as an inhalant before approving this project (Savulescu & Spriggs, 2002).
+                    </p>
+                </div>
+            </details>
+        </div>
+
+        <!-- Scenario 2: Egg Donors -->
+        <div id="scenario-2" class="case-scenario-block">
+            <p class="case-scenario-text">A researcher recruited junior female members of his laboratory as egg donors for a research project. Because the process of egg extraction is invasive and painful and can have side effects, the women had the option to refuse.</p>
+            <div class="case-actions">
+                <button class="action-button check" data-scenario="s2" data-choice="ethical">✔</button>
+                <button class="action-button cross" data-scenario="s2" data-choice="unethical">✖</button>
+            </div>
+            <details id="feedback-s2" class="feedback-details">
+                <summary>Show Feedback</summary>
+                <div class="feedback-content-wrapper">
+                    <p id="s2-correct-feedback" class="feedback-text correct-response">
+                        Correct. Although it could be argued that the lab members were free to refuse to donate their eggs, the fact that the subjects worked under the researcher recruiting them created a scenario of coercion. In 2005 Dr. Hwang admitted to recruiting female lab members to donate their eggs for his research. This was one of the many ethics violations he committed that eventually led to his trial and conviction in South Korea (Cyranoski & Check, 2005).
+                    </p>
+                    <p id="s2-incorrect-feedback" class="feedback-text incorrect-response">
+                        Incorrect. Although it could be argued that the lab members were free to refuse to donate their eggs, the fact that the subjects worked under the researcher recruiting them created a scenario of coercion. In 2005 Dr. Hwang admitted to recruiting female lab members to donate their eggs for his research. This was one of the many ethics violations he committed that eventually led to his trial and conviction in South Korea (Cyranoski & Check, 2005).
+                    </p>
+                </div>
+            </details>
+        </div>
+
+        <!-- Scenario 3: Sharing Mouse Tissues -->
+        <div id="scenario-3" class="case-scenario-block">
+            <p class="case-scenario-text">A UK university created a way to share tissues from mice used in their breast cancer experiments. Tissues that are not used by the local researchers can be requested by researchers from other universities to conduct their own research.</p>
+            <div class="case-actions">
+                <button class="action-button check" data-scenario="s3" data-choice="ethical">✔</button>
+                <button class="action-button cross" data-scenario="s3" data-choice="unethical">✖</button>
+            </div>
+            <details id="feedback-s3" class="feedback-details">
+                <summary>Show Feedback</summary>
+                <div class="feedback-content-wrapper">
+                    <p id="s3-correct-feedback" class="feedback-text correct-response">
+                        Correct. This is a great effort to reduce the number of animals used in research by allowing others to analyze tissues that would otherwise go to waste (Anon., 2017).
+                    </p>
+                    <p id="s3-incorrect-feedback" class="feedback-text incorrect-response">
+                        Incorrect. Without this ability to share, researchers in other institutions would have to use their own animals for their projects, and thus the number of animals would increase unnecessarily (Anon., 2017).
+                    </p>
+                </div>
+            </details>
+        </div>
+
+        <p class="mt-8 mb-4">Understanding the ethical principles of working with animal or human subjects is necessary for those conducting research with these types of subjects. However, it is also important for all citizens to be informed about these principles. It is the responsibility of all citizens to keep researchers accountable, contribute to the public discussion of these policies, and be aware of their rights as potential research subjects.</p>
+
+        <!-- You can add a continue link here if desired -->
+        <!--
+        <div class="continue-link-container">
+            <a href="#" class="continue-link">Continue to Next Topic</a>
+        </div>
+        -->
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const actionButtons = document.querySelectorAll('.action-button');
+
+            const scenarioCorrectAnswers = {
+                's1': 'unethical', // Hexamethonium: Unethical (cross) is the correct assessment
+                's2': 'unethical', // Egg Donors: Unethical (cross) is the correct assessment
+                's3': 'ethical'    // Mouse Tissues: Ethical (check) is the correct assessment
+            };
+
+            actionButtons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const scenarioId = event.target.dataset.scenario;
+                    const userChoice = event.target.dataset.choice; // 'ethical' or 'unethical'
+
+                    const feedbackDetails = document.getElementById(`feedback-${scenarioId}`);
+                    const correctFeedback = document.getElementById(`${scenarioId}-correct-feedback`);
+                    const incorrectFeedback = document.getElementById(`${scenarioId}-incorrect-feedback`);
+
+                    // Close all feedback initially
+                    feedbackDetails.open = false;
+                    correctFeedback.classList.remove('active');
+                    incorrectFeedback.classList.remove('active');
+
+                    // Determine if the user's choice was correct for this scenario
+                    const isChoiceCorrect = (userChoice === scenarioCorrectAnswers[scenarioId]);
+
+                    if (isChoiceCorrect) {
+                        correctFeedback.classList.add('active');
+                    } else {
+                        incorrectFeedback.classList.add('active');
+                    }
+
+                    // Open the feedback details
+                    feedbackDetails.open = true;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
