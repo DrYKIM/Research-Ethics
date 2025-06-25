@@ -114,32 +114,7 @@
             padding: 1.5rem;
             margin-top: 2rem;
         }
-        .category-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 1rem;
-            margin-bottom: 1.5rem;
-        }
-        .category-button {
-            padding: 10px 18px;
-            border-radius: 0.5rem;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            border: 2px solid;
-            transition: all 0.2s ease;
-        }
-        /* Default button styles */
-        #btn-confident { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
-        #btn-need-info { border-color: #f59e0b; background-color: #fffbeb; color: #92400e; }
-        #btn-new-topic { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
-
-        /* Active button styles */
-        #btn-confident.active { background-color: #22c55e; color: white; }
-        #btn-need-info.active { background-color: #f59e0b; color: white; }
-        #btn-new-topic.active { background-color: #ef4444; color: white; }
-
+        
         #statement-list {
             list-style: none;
             padding: 0;
@@ -151,7 +126,6 @@
             padding: 12px 15px;
             margin-bottom: 8px;
             border-radius: 0.375rem;
-            cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -161,23 +135,32 @@
         .statement-item:hover {
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
-        .category-label {
-            font-size: 0.75rem;
-            font-weight: 600;
-            padding: 4px 8px;
+        .category-select {
+            padding: 6px 10px;
             border-radius: 0.25rem;
-            margin-left: 10px;
-            white-space: nowrap; /* Prevent text wrapping */
+            border: 1px solid #cbd5e1;
+            background-color: #f8fafc;
+            font-size: 0.9rem;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.2s ease;
+            color: #4a5568; /* Default text color */
         }
+        .category-select:focus {
+            border-color: #a78bfa; /* violet-400 */
+            box-shadow: 0 0 0 2px rgba(167, 139, 250, 0.5);
+        }
+
         /* Category specific styles for statements */
-        .statement-confident { background-color: #dcfce7; border-color: #86efac; }
-        .statement-confident .category-label { background-color: #22c55e; color: white; }
+        .statement-confident { background-color: #dcfce7; border-color: #86efac; } /* Green tint */
+        .statement-need-info { background-color: #fffdf0; border-color: #fde68a; } /* Orange tint */
+        .statement-new-topic { background-color: #fff5f5; border-color: #fca5a5; } /* Red tint */
 
-        .statement-need-info { background-color: #fffdf0; border-color: #fde68a; }
-        .statement-need-info .category-label { background-color: #f59e0b; color: white; }
+        /* Category specific styles for select boxes (optional, but good for consistency) */
+        .category-select.confident { background-color: #22c55e; color: white; border-color: #22c55e;}
+        .category-select.need-info { background-color: #f59e0b; color: white; border-color: #f59e0b;}
+        .category-select.new-topic { background-color: #ef4444; color: white; border-color: #ef4444;}
 
-        .statement-new-topic { background-color: #fff5f5; border-color: #fca5a5; }
-        .statement-new-topic .category-label { background-color: #ef4444; color: white; }
 
         .note-text {
             font-size: 0.875rem; /* text-sm */
@@ -189,13 +172,12 @@
 <body class="antialiased">
 
     <div class="main-content-container">
-        <h1>Principles of research ethics with human and animal subjects</h1>
 
         <p>Research that uses animals or humans as subjects is key for the advancement of many disciplines. For example, testing newly developed drugs on animals tells us whether the drugs will be safe to test on humans. However, it is the responsibility of the researcher to ensure that animal and human subjects are treated with respect, and to prevent unnecessary suffering.</p>
 
-        <p class="mt-6 mb-4 text-gray-700">Read about a controversial case using human subjects. Click on each section to find out more.</p>
+        <p class="mt-6 mb-4 text-gray-700"></p>
         <div style="background-color: #e0f2fe; border-left: 4px solid #38bdf8; padding: 0.75rem; margin-top: 1rem; margin-bottom: 1.5rem; border-radius: 0.375rem; color: #0c4a6e;">
-            <p>Continue on to learn about a controversial case using human subjects.</p>
+            <p>Read about a controversial case using human subjects. Click on each section to find out more.</p>
         </div>
 
 
@@ -250,23 +232,80 @@
         <!-- Confidence Rating Activity -->
         <div id="confidence-rating-section">
             <h3 class="mb-4">Rate the statements based on your level of confidence of your knowledge on the topic.</h3>
-            <p>Rate what you consider to be your level of confidence of your knowledge on each topic.</p>
-
-            <div class="category-buttons">
-                <button id="btn-confident" class="category-button">Confident</button>
-                <button id="btn-need-info" class="category-button">Need more information</button>
-                <button id="btn-new-topic" class="category-button">New topic</button>
-            </div>
-
+            
             <ul id="statement-list">
-                <li class="statement-item" data-id="s1">I know the office at my institution that regulates the use of animals in research. <span class="category-label"></span></li>
-                <li class="statement-item" data-id="s2">I know the office at my institution that regulates the use of human subjects in research. <span class="category-label"></span></li>
-                <li class="statement-item" data-id="s3">I can describe the ethical principles of work with animal subjects. <span class="category-label"></span></li>
-                <li class="statement-item" data-id="s4">I can describe the ethical principles of work with human subjects. <span class="category-label"></span></li>
-                <li class="statement-item" data-id="s5">I am conducting research with animal subjects. <span class="category-label"></span></li>
-                <li class="statement-item" data-id="s6">I am conducting research with human subjects. <span class="category-label"></span></li>
-                <li class="statement-item" data-id="s7">I have received training for work with animal subjects. <span class="category-label"></span></li>
-                <li class="statement-item" data-id="s8">I have received training for work with human subjects. <span class="category-label"></span></li>
+                <li class="statement-item" data-id="s1">
+                    <span>I know the office at my institution that regulates the use of animals in research.</span>
+                    <select class="category-select" data-statement-id="s1">
+                        <option value="">-- Select --</option>
+                        <option value="confident">Confident</option>
+                        <option value="need-info">Need more information</option>
+                        <option value="new-topic">New topic</option>
+                    </select>
+                </li>
+                <li class="statement-item" data-id="s2">
+                    <span>I know the office at my institution that regulates the use of human subjects in research.</span>
+                    <select class="category-select" data-statement-id="s2">
+                        <option value="">-- Select --</option>
+                        <option value="confident">Confident</option>
+                        <option value="need-info">Need more information</option>
+                        <option value="new-topic">New topic</option>
+                    </select>
+                </li>
+                <li class="statement-item" data-id="s3">
+                    <span>I can describe the ethical principles of work with animal subjects.</span>
+                    <select class="category-select" data-statement-id="s3">
+                        <option value="">-- Select --</option>
+                        <option value="confident">Confident</option>
+                        <option value="need-info">Need more information</option>
+                        <option value="new-topic">New topic</option>
+                    </select>
+                </li>
+                <li class="statement-item" data-id="s4">
+                    <span>I can describe the ethical principles of work with human subjects.</span>
+                    <select class="category-select" data-statement-id="s4">
+                        <option value="">-- Select --</option>
+                        <option value="confident">Confident</option>
+                        <option value="need-info">Need more information</option>
+                        <option value="new-topic">New topic</option>
+                    </select>
+                </li>
+                <li class="statement-item" data-id="s5">
+                    <span>I am conducting research with animal subjects.</span>
+                    <select class="category-select" data-statement-id="s5">
+                        <option value="">-- Select --</option>
+                        <option value="confident">Confident</option>
+                        <option value="need-info">Need more information</option>
+                        <option value="new-topic">New topic</option>
+                    </select>
+                </li>
+                <li class="statement-item" data-id="s6">
+                    <span>I am conducting research with human subjects.</span>
+                    <select class="category-select" data-statement-id="s6">
+                        <option value="">-- Select --</option>
+                        <option value="confident">Confident</option>
+                        <option value="need-info">Need more information</option>
+                        <option value="new-topic">New topic</option>
+                    </select>
+                </li>
+                <li class="statement-item" data-id="s7">
+                    <span>I have received training for work with animal subjects.</span>
+                    <select class="category-select" data-statement-id="s7">
+                        <option value="">-- Select --</option>
+                        <option value="confident">Confident</option>
+                        <option value="need-info">Need more information</option>
+                        <option value="new-topic">New topic</option>
+                    </select>
+                </li>
+                <li class="statement-item" data-id="s8">
+                    <span>I have received training for work with human subjects.</span>
+                    <select class="category-select" data-statement-id="s8">
+                        <option value="">-- Select --</option>
+                        <option value="confident">Confident</option>
+                        <option value="need-info">Need more information</option>
+                        <option value="new-topic">New topic</option>
+                    </select>
+                </li>
             </ul>
             <p class="note-text">If you are not entirely confident about the appropriate ethics and regulations guiding use of animals or human subjects in research, you will be able to gain more information about these topics throughout this module.</p>
         </div>
@@ -275,43 +314,24 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const categoryButtons = document.querySelectorAll('.category-button');
-            const statementItems = document.querySelectorAll('.statement-item');
-            let activeCategory = null; // Stores the currently selected category ('confident', 'need-info', 'new-topic')
+            const selectElements = document.querySelectorAll('.category-select');
 
-            // Function to reset all button active states
-            const resetCategoryButtons = () => {
-                categoryButtons.forEach(button => {
-                    button.classList.remove('active');
-                });
-            };
+            selectElements.forEach(select => {
+                select.addEventListener('change', (event) => {
+                    const selectedCategory = event.target.value;
+                    const statementItem = event.target.closest('.statement-item');
 
-            // Event listener for category buttons
-            categoryButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    resetCategoryButtons(); // Deactivate all buttons first
-                    button.classList.add('active'); // Activate clicked button
-                    activeCategory = button.id.replace('btn-', ''); // Set active category (e.g., 'confident')
-                });
-            });
+                    // Remove existing category classes from the statement item
+                    statementItem.classList.remove('statement-confident', 'statement-need-info', 'statement-new-topic');
+                    event.target.classList.remove('confident', 'need-info', 'new-topic');
 
-            // Event listener for statement items
-            statementItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    if (activeCategory) {
-                        // Remove previous category classes from the statement
-                        item.classList.remove('statement-confident', 'statement-need-info', 'statement-new-topic');
 
-                        // Add the new category class
-                        item.classList.add(`statement-${activeCategory}`);
+                    if (selectedCategory) {
+                        // Add the new category class to the statement item
+                        statementItem.classList.add(`statement-${selectedCategory}`);
+                        // Add the new category class to the select element for styling
+                        event.target.classList.add(selectedCategory);
 
-                        // Update the category label text and style
-                        const labelSpan = item.querySelector('.category-label');
-                        labelSpan.textContent = activeCategory.replace('-', ' ').replace(/\b\w/g, char => char.toUpperCase()); // Format to "Confident", "Need Information", etc.
-                        labelSpan.className = `category-label category-label-${activeCategory}`; // Add class for specific label styling if needed
-                    } else {
-                        // Optionally, alert the user to select a category first
-                        console.log('Please select a category first (Confident, Need more information, or New topic).');
                     }
                 });
             });
