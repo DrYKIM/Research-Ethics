@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Research Scenarios</title>
+    <!-- Tailwind CSS CDN for base utilities -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* General body and list styles for consistency */
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        ul {
+            list-style-type: disc;
+            padding-left: 24px;
+            margin-bottom: 16px;
+        }
+        ol {
+            list-style-type: decimal;
+            padding-left: 24px;
+            margin-bottom: 16px;
+        }
+
+        /* Main content container styling */
+        .main-content-container {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 1.5rem;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        /* General heading and paragraph styles */
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1a202c;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            color: #4a5568;
+        }
+        strong {
+            font-weight: 700;
+        }
+        em {
+            font-style: italic;
+        }
+        a {
+            color: #4f46e5;
+            text-decoration: underline;
+        }
+
+        /* Styles for quiz/scenario sections (radio buttons, feedback) */
+        .scenario-block { /* Changed from .scenario-container and removed <details> */
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .scenario-question-text {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1a202c;
+        }
+        .scenario-options {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 0.5rem;
+        }
+        .scenario-options li {
+            margin-bottom: 0.5rem;
+        }
+        .scenario-options input[type="radio"] {
+            margin-right: 0.5rem;
+        }
+        .scenario-feedback-details {
+            margin-top: 1rem;
+            border-radius: 0.375rem;
+            overflow: hidden;
+            border: 1px solid #c7d2fe; /* indigo-200 */
+        }
+        /* Style for feedback summary to remove default arrow */
+        .scenario-feedback-details summary {
+            padding: 0.75rem 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            list-style: none; /* Remove default marker */
+            background-color: #e0e7ff; /* indigo-100 */
+            color: #4338ca; /* indigo-700 */
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .scenario-feedback-details .feedback-content {
+            padding: 1rem;
+            background-color: #eff6ff; /* blue-50 */
+            border-top: 1px solid #bfdbfe; /* blue-200 */
+            color: #1e40af;
+        }
+        .feedback-correct {
+            font-weight: bold;
+            color: #10b981 !important; /* green-600 with !important */
+        }
+        .feedback-incorrect {
+            font-style: italic;
+            color: #ef4444 !important; /* red-500 with !important */
+        }
+        .feedback-neutral {
+            color: #4a5568 !important; /* gray-700 with !important */
+        }
+
+        /* Styling for the "Proceed" button/summary within feedback */
+        .proceed-button-container {
+            margin-top: 1rem;
+            border-radius: 0.375rem;
+            overflow: hidden;
+            border: 1px solid #a78bfa; /* violet-400 */
+        }
+        .proceed-button-container summary {
+            padding: 0.75rem 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            list-style: none;
+            background-color: #ddd6fe; /* violet-200 */
+            color: #6d28d9; /* violet-700 */
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .proceed-button-container summary::after {
+            content: '»'; /* Custom marker for proceeding */
+            margin-left: 0.5rem;
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+        .proceed-button-container[open] summary::after {
+            transform: rotate(90deg);
+        }
+        .proceed-button-container .content {
+            padding: 1rem;
+            background-color: #f5f3ff; /* violet-50 */
+            border-top: 1px solid #c4b5fd; /* violet-300 */
+            color: #5b21b6;
+        }
+    </style>
+</head>
+<body style="font-family: sans-serif; margin: 0; padding: 20px; box-sizing: border-box; background-color: #f0f2f5; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; flex-direction: column;">
+
+    <div class="main-content-container">
+        <h3 style="font-size: 1.25rem; font-weight: 600; color: #1a202c; margin-top: 0; margin-bottom: 0.75rem;">Interactive Scenarios: Questionable Research Practices</h3>
+        <p style="margin-bottom: 1rem; line-height: 1.6; color: #4a5568;">
+            You will be presented with three scenarios that can result in questionable research practices. Select a scenario by expanding its section, work through the questions by choosing a course of action for each, and proceed to feedback.
+        </p>
+
+        <!-- Authorship Scenario -->
+        <details id="authorship-scenario-main" open style="margin-top: 1rem; margin-bottom: 1rem; border-radius: 0.5rem; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);">
+            <summary style="padding: 1rem; font-weight: 700; font-size: 1.15rem; cursor: pointer; list-style: none; background-color: #edf2f7; color: #2d3748; display: flex; justify-content: space-between; align-items: center;">
+                Start Authorship Scenario
+                <span style="font-size: 1.2rem; color: #4a5568;">+</span>
+            </summary>
+            <div class="content">
+                <!-- Authorship Question 1 -->
+                <div id="authorship-q1-block" class="scenario-block" style="display: block;">
+                    <h4 style="font-size: 1.1rem; font-weight: 600; color: #1a202c; margin-bottom: 0.5rem;">Authorship Question 1:</h4>
+                    <p class="scenario-question-text">
+                        You worked alongside graduate student Robert in a project, under the advisory of Prof. Maya, and learned a lot from the experience. A few weeks later, Prof. Maya and you initiated another project and recruited Tomas to help. The second project has been successful and you are submitting an abstract for a conference. Prof. Maya sends you the draft of the abstract and you find out that the authors listed are: Robert, you, and Prof. Maya. What is your reaction?
+                    </p>
+                    <ul class="scenario-options">
+                        <li>
+                            <input type="radio" id="authorship-q1-a1" name="authorship-q1" value="A1" onclick="selectOption('authorship-q1-block', 'authorship-q1-feedback-a1');">
+                            <label for="authorship-q1-a1">Trust Prof. Maya; there must be a reason for the choice of authors.</label>
+                        </li>
+                        <li>
+                            <input type="radio" id="authorship-q1-a2" name="authorship-q1" value="A2" onclick="selectOption('authorship-q1-block', 'authorship-q1-feedback-a2');">
+                            <label for="authorship-q1-a2">Request a meeting with Prof. Maya to discuss the authorship, since you think that the list of authors should be different.</label>
+                        </li>
+                    </ul>
+
+                    <!-- Feedback for Question 1 - Option 1 -->
+                    <details id="authorship-q1-feedback-a1" class="scenario-feedback-details">
+                        <summary>If you chose 'Trust Prof. Maya', click here for Feedback</summary>
+                        <div class="feedback-content">
+                            <p class="feedback-neutral">
+                                Your choice leads to the next step.
+                            </p>
+                            <details class="proceed-button-container">
+                                <summary onclick="moveToNextQuestion('authorship-q1-block', 'authorship-q2-block');">
+                                    Click here to proceed to Authorship Question 2
+                                </summary>
+                                <div class="content">
+                                    You can click this button to move to the next question.
+                                </div>
+                            </details>
+                        </div>
+                    </details>
+
+                    <!-- Feedback for Question 1 - Option 2 -->
+                    <details id="authorship-q1-feedback-a2" class="scenario-feedback-details">
+                        <summary>If you chose 'Request a meeting', click here for Feedback</summary>
+                        <div class="feedback-content">
+                            <p class="feedback-neutral">
+                                Your choice leads to the next step.
+                            </p>
+                            <details class="proceed-button-container">
+                                <summary onclick="moveToNextQuestion('authorship-q1-block', 'authorship-q3-block');">
+                                    Click here to proceed to Authorship Question 3
+                                </summary>
+                                <div class="content">
+                                    You can click this button to move to the next question.
+                                </div>
+                            </details>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Authorship Question 2 (only revealed by Q1-A1) -->
+                <div id="authorship-q2-block" class="scenario-block" style="display: none;">
+                    <h4 style="font-size: 1.1rem; font-weight: 600; color: #1a202c; margin-bottom: 0.5rem;">Authorship Question 2:</h4>
+                    <p class="scenario-question-text">
+                        The abstract is submitted and accepted. When you get to work later that week you find Tomas is furious because he worked on the project and was not included as an author. How do you react?
+                    </p>
+                    <ul class="scenario-options">
+                        <li>
+                            <input type="radio" id="authorship-q2-actual-a1" name="authorship-q2-actual" value="A1" onclick="selectOption('authorship-q2-block', 'authorship-q2-feedback-actual-a1');">
+                            <label for="authorship-q2-actual-a1">You request a meeting with Prof. Maya to discuss the authorship.</label>
+                        </li>
+                        <li>
+                            <input type="radio" id="authorship-q2-actual-a2" name="authorship-q2-actual" value="A2" onclick="selectOption('authorship-q2-block', 'authorship-q2-feedback-actual-a2');">
+                            <label for="authorship-q2-actual-a2">You tell Tomas there is nothing you can do now, since the abstract is accepted.</label>
+                        </li>
+                    </ul>
+
+                    <!-- Feedback for Question 2 - Alt Option 1 (leads to Q3) -->
+                    <details id="authorship-q2-feedback-actual-a1" class="scenario-feedback-details">
+                        <summary>If you chose 'Request a meeting', click here for Feedback</summary>
+                        <div class="feedback-content">
+                            <p class="feedback-neutral">
+                                Your choice leads to the next step.
+                            </p>
+                            <details class="proceed-button-container">
+                                <summary onclick="moveToNextQuestion('authorship-q2-block', 'authorship-q3-block');">
+                                    Click here to proceed to Authorship Question 3
+                                </summary>
+                                <div class="content">
+                                    You can click this button to move to the next question.
+                                </div>
+                            </details>
+                        </div>
+                    </details>
+
+                    <!-- Feedback for Question 2 - Alt Option 2 (direct feedback 1) -->
+                    <details id="authorship-q2-feedback-actual-a2" class="scenario-feedback-details">
+                        <summary>If you chose 'You tell Tomas there is nothing you can do', click here for Feedback</summary>
+                        <div class="feedback-content">
+                            <p class="feedback-incorrect">
+                                You are falling into a Questionable Research Practice. All individuals who made a substantial intellectual contribution to the project must be listed as authors. Therefore, Tomas deserves to be an author in the abstract.
+                            </p>
+                             <details class="proceed-button-container">
+                                <summary onclick="moveToNextScenario('authorship-scenario-main', 'funding-scenario-main');">
+                                    Click here to proceed to Funding Scenario
+                                </summary>
+                                <div class="content">
+                                    You have completed the Authorship Scenario. Click the button above to start the Funding Scenario.
+                                </div>
+                            </details>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Authorship Question 3 (only revealed by Q1-A2 or Q2-A1) -->
+                <div id="authorship-q3-block" class="scenario-block" style="display: none;">
+                    <h4 style="font-size: 1.1rem; font-weight: 600; color: #1a202c; margin-bottom: 0.5rem;">Authorship Question 3:</h4>
+                    <p class="scenario-question-text">
+                        You meet with Prof. Maya and tell her that Tomas deserves to be an author. She agrees. Then she asks if you are OK with Robert being an author, since he trained you when you started doing research. What do you think?
+                    </p>
+                    <ul class="scenario-options">
+                        <li>
+                            <input type="radio" id="authorship-q3-actual-a1" name="authorship-q3-actual" value="A1" onclick="selectOption('authorship-q3-block', 'authorship-q3-feedback-actual-a1');">
+                            <label for="authorship-q3-actual-a1">You feel very grateful to Robert and think it is a good idea to list him as an author to thank him.</label>
+                        </li>
+                        <li>
+                            <input type="radio" id="authorship-q3-actual-a2" name="authorship-q3-actual" value="A2" onclick="selectOption('authorship-q3-block', 'authorship-q3-feedback-actual-a2');">
+                            <label for="authorship-q3-actual-a2">You explain that although you are grateful to Robert, you don't think he should be listed as an author because he didn't contribute to the project.</label>
+                        </li>
+                    </ul>
+
+                    <!-- Feedback for Question 3 - Actual Option 1 (direct feedback 2) -->
+                    <details id="authorship-q3-feedback-actual-a1" class="scenario-feedback-details">
+                        <summary>If you chose 'Feel very grateful', click here for Feedback</summary>
+                        <div class="feedback-content">
+                            <p class="feedback-incorrect">
+                                You are falling into a Questionable Research Practice. Only those individuals who made a substantial intellectual contribution to the project must be listed as authors. Robert did not make a significant contribution to this project, even if he helped train you in the past.
+                            </p>
+                        </div>
+                    </details>
+
+                    <!-- Feedback for Question 3 - Actual Option 2 (leads to Q4) -->
+                    <details id="authorship-q3-feedback-actual-a2" class="scenario-feedback-details">
+                        <summary>If you chose 'Explain he didn't contribute', click here for Feedback</summary>
+                        <div class="feedback-content">
+                            <p class="feedback-neutral">
+                                Your choice leads to the next step.
+                            </p>
+                            <details class="proceed-button-container">
+                                <summary onclick="moveToNextQuestion('authorship-q3-block', 'authorship-q4-block');">
+                                    Click here to proceed to Authorship Question 4
+                                </summary>
+                                <div class="content">
+                                    You can click this button to move to the next question.
+                                </div>
+                            </details>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Authorship Question 4 -->
+                <div id="authorship-q4-block" class="scenario-block" style="display: none;">
+                    <h4 style="font-size: 1.1rem; font-weight: 600; color: #1a202c; margin-bottom: 0.5rem;">Authorship Question 4:</h4>
+                    <p class="scenario-question-text">
+                        Prof. Maya agrees that Tomas deserves to be an author, and that Robert didn't contribute to this project and thus should not be an author. However, she had already sent the abstract to the conference organizers. How do you propose to fix this?
+                    </p>
+                    <ul class="scenario-options">
+                        <li>
+                            <input type="radio" id="authorship-q4-a1" name="authorship-q4" value="A1" onclick="selectOption('authorship-q4-block', 'authorship-feedback1-final');">
+                            <label for="authorship-q4-a1">You don't want to cause trouble and suggest telling Tomas that he will be included in the next abstract or publication.</label>
+                        </li>
+                        <li>
+                            <input type="radio" id="authorship-q4-a2" name="authorship-q4" value="A2" onclick="selectOption('authorship-q4-block', 'authorship-feedback3-final');">
+                            <label for="authorship-q4-a2">You suggest contacting the conference organizers and asking them to change the authors or publish a correction in the abstract book.</label>
+                        </li>
+                    </ul>
+
+                    <!-- Feedback for Q4 - Option 1 (Incorrect) -->
+                    <details id="authorship-feedback1-final" class="scenario-feedback-details">
+                        <summary>If you chose 'You don't want to cause trouble', click here for Feedback</summary>
+                        <div class="feedback-content">
+                            <p class="feedback-incorrect">
+                                You are falling into a Questionable Research Practice. All individuals who made a substantial intellectual contribution to the project must be listed as authors. Therefore, Tomas deserves to be an author in the abstract.
+                            </p>
+                            <!-- New section to proceed to next scenario -->
+                            <details class="proceed-button-container">
+                                <summary onclick="moveToNextScenario('authorship-scenario-main', 'funding-scenario-main');">
+                                    Click here to proceed to Funding Scenario
+                                </summary>
+                                <div class="content">
+                                    You have completed the Authorship Scenario. Click the button above to start the Funding Scenario.
+                                </div>
+                            </details>
+                        </div>
+                    </details>
+
+                    <!-- Feedback for Q4 - Option 2 (Corrected Feedback text as requested) -->
+                    <details id="authorship-feedback3-final" class="scenario-feedback-details">
+                        <summary>If you chose 'You suggest contacting the conference organizers', click here for Feedback</summary>
+                        <div class="feedback-content">
+                            <p class="feedback-incorrect">
+                                You are falling into a Questionable Research Practice. All individuals who made a substantial intellectual contribution to the project must be listed as authors. Robert did not make a significant contribution to this project, even if he helped train you in the past.
+                            </p>
+                            <!-- New section to proceed to next scenario -->
+                            <details class="proceed-button-container">
+                                <summary onclick="moveToNextScenario('authorship-scenario-main', 'funding-scenario-main');">
+                                    Click here to proceed to Funding Scenario
+                                </summary>
+                                <div class="content">
+                                    You have completed the Authorship Scenario. Click the button above to start the Funding Scenario.
+                                </div>
+                            </details>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </details>
+
+        <!-- Funding Scenario -->
+        <details id="funding-scenario-main" style="margin-top: 1rem; margin-bottom: 1rem; border-radius: 0.5rem; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);">
+            <summary style="padding: 1rem; font-weight: 700; font-size: 1.15rem; cursor: pointer; list-style: none; background-color: #edf2f7; color: #2d3748; display: flex; justify-content: space-between; align-items: center;">
+                Start Funding Scenario
+                <span style="font-size: 1.2rem; color: #4a5568;">+</span>
+            </summary>
+            <div class="content">
+                <!-- Funding Question 1 -->
+                <div id="funding-q1-block" class="scenario-block" style="display: none;">
+                    <h4 style="font-size: 1.1rem; font-weight: 600; color: #1a202c; margin-bottom: 0.5rem;">Funding Question 1:</h4>
+                    <p class="scenario-question-text">
+                        You have one research project focused on understanding gambling addiction and have a government-funded grant to support your project. A colleague tells you about a private organization that also funds this type of research. You apply for funds from the private agency and obtain a positive response. Should you notify the government agency?
+                    </p>
+                    <ul class="scenario-options">
+                        <li>
+                            <input type="radio" id="funding-q1-a1" name="funding-q1" value="A1" onclick="selectOption('funding-q1-block', 'funding-q1-feedback-a1');">
+                            <label for="funding-q1-a1">Yes, some agencies do not allow duplication of funds for a single project, and thus they might need to reduce your funds accordingly.</label>
+                        </li>
+                        <li>
+                            <input type="radio" id="funding-q1-a2" name="funding-q1" value="A2" onclick="selectOption('funding-q1-block', 'funding-q1-feedback-a2');">
+                            <label for="funding-q1-a2">No, the more funds for your research the better.</label>
+                        </li>
+                    </ul>
+
+                    <!-- Feedback for Funding Question 1 - Option 1 (leads to Q2) -->
+                    <details id="funding-q1-feedback-a1" class="scenario-feedback-details">
+                        <summary>If you chose 'Yes, notify agency', click here for Feedback</summary>
+                        <div class="feedback-content">
+                            <p class="feedback-neutral">
+                                Your choice leads to the next step.
+                            </p>
+                            <details class="proceed-button-container">
+                                <summary onclick="moveToNextQuestion('funding-q1-block', 'funding-q2-block');">
+                                    Click here to proceed to Funding Question 2
+                                </summary>
+                                <div class="content">
+                                    You can click this button to move to the next question.
+                                </div>
+                            </details>
+                        </div>
+                    </details>
+
+                    <!-- Feedback for Funding Question 1 - Option 2 (direct feedback 1) -->
+                    <details id="funding-q1-feedback-a2" class="scenario-feedback-details">
+                        <summary>If you chose 'No, the more funds for your research the better', click here for Feedback</summary>
+                        <div class="feedback-content">
+                            <p class="feedback-neutral">
+                                Although you can sometimes apply for funds for one project from multiple sources, it is always good practice to disclose other funding sources to the agencies you are working with. If those agencies do not allow duplication of funds for a single project they might need to adjust their funding accordingly.
+                            </p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Funding Question 2 (only revealed by Q1-A1) -->
+                <div id="funding-q2-block" class="scenario-block" style="display: none;">
+                    <h4 style="font-size: 1.1rem; font-weight: 600; color: #1a202c; margin-bottom: 0.5rem;">Funding Question 2:</h4>
+                    <p class="scenario-question-text">
+                        When you receive the letter notifying you of the grant from the private organization you realize that most of their donors are casino owners, and that there is a clause in the funding contract that states that your results will need to be reviewed by the private organization before you send out for publication. How would you proceed?
+                    </p>
+                    <ul class="scenario-options">
+                        <li>
+                            <input type="radio" id="funding-q2-actual-a1" name="funding-q2-actual" value="A1" onclick="selectOption('funding-q2-block', 'funding-feedback2');">
+                            <label for="funding-q2-actual-a1">You accept the money, use it for your research, but avoid mentioning where it came from because it might raise suspicions about the casino owners influencing your research.</label>
+                        </li>
+                        <li>
+                            <input type="radio" id="funding-q2-actual-a2" name="funding-q2-actual" value="A2" onclick="selectOption('funding-q2-block', 'funding-feedback3-final');">
+                            <label for="funding-q2-actual-a2">You accept the money, use if for your research, and publicly disclose the source of the money.</label>
+                        </li>
+                        <li>
+                            <input type="radio" id="funding-q2-actual-a3" name="funding-q2-actual" value="A3" onclick="selectOption('funding-q2-block', 'funding-feedback3-final');">
+                            <label for="funding-q2-actual-a3">You refuse to accept the grant to avoid any potential suspicions that your research is influenced by casino owners.</label>
+                        </li>
+                    </ul>
+
+                    <!-- Feedback for Funding Question 2 - Option 1 -->
+                    <details id="funding-feedback2" class="scenario-feedback-details">
+                        <summary>If you chose 'You accept the money, use it for your research, but avoid mentioning where it came from', click here for Feedback</summary>
+                        <div class="feedback-content">
+                            <p class="feedback-incorrect">
+                                You are falling into a Questionable Research Practice. Receiving funding from private entities (casinos) that have a commercial interest in the outcome of your research and can control the publication of your results creates a conflict of interest. Conflicts of interest should be avoided or fully disclosed.
+                            </p>
+                            <!-- New section to proceed to next scenario -->
+                            <details class="proceed-button-container">
+                                <summary onclick="moveToNextScenario('funding-scenario-main', 'mentoring-scenario-main');">
+                                    Click here to proceed to Mentoring Scenario
+                                </summary>
+                                <div class="content">
+                                    You have completed the Funding Scenario. Click the button above to start the Mentoring Scenario.
+                                </div>
+                            </details>
+                        </div>
+                    </details>
+
+                    <!-- Feedback for Funding Question 2 - Option 2 or 3 -->
+                    <details id="funding-feedback3-final" class="scenario-feedback-details">
+                        <summary>If you chose 'You accept the money, use it for your research, and publicly disclose the source of the money' or 'You refuse to accept the grant', click here for Feedback</summary>
+                        <div class="feedback-content">
+                            <p class="feedback-correct">
+                                There are two possible ethical solutions to this question. You can either refuse to accept the grant, or you can accept the grant and disclose the source of the money. Depending on the type of research you are doing, accepting the money might have different consequences. In some fields conducting research with funds from private entities that have an interest in, and potentially even control over the dissemination of your results constitutes a conflict of interest that must be avoided. In other disciplines having a conflict of interest is fine, as long as you disclose it.
+                            </p>
+                            <!-- New section to proceed to next scenario -->
+                            <details class="proceed-button-container">
+                                <summary onclick="moveToNextScenario('funding-scenario-main', 'mentoring-scenario-main');">
+                                    Click here to proceed to Mentoring Scenario
+                                </summary>
+                                <div class="content">
+                                    You have completed the Funding Scenario. Click the button above to start the Mentoring Scenario.
+                                </div>
+                            </details>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </details>
+
+        <!-- Mentoring Scenario -->
+        <details id="mentoring-scenario-main" style="margin-top: 1rem; margin-bottom: 1rem; border-radius: 0.5rem; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);">
+            <summary style="padding: 1rem; font-weight: 700; font-size: 1.15rem; cursor: pointer; list-style: none; background-color: #edf2f7; color: #2d3748; display: flex; justify-content: space-between; align-items: center;">
+                Start Mentoring Scenario
+                <span style="font-size: 1.2rem; color: #4a5568;">+</span>
+            </summary>
+            <div class="content">
+                <!-- Mentoring Question 1 -->
+                <div id="mentoring-q1-block" class="scenario-block" style="display: none;">
+                    <h4 style="font-size: 1.1rem; font-weight: 600; color: #1a202c; margin-bottom: 0.5rem;">Mentoring Question 1:</h4>
+                    <p class="scenario-question-text">
+                        Alex is a fifth-year Ph.D. student trying to take the next step in her career. She is interested in finding a position at a leading private company, but she is not sure how to begin looking for those types of jobs. She asks her research advisor for advice. He tells her to forget about working for a private company; he has already recommended her to one of his friends at a different university to join his research group as a postdoctoral researcher. What do you think about the situation?
+                    </p>
+                    <ul class="scenario-options">
+                        <li>
+                            <input type="radio" id="mentoring-q1-a1" name="mentoring-q1" value="A1" onclick="selectOption('mentoring-q1-block', 'mentoring-q1-feedback-a1');">
+                            <label for="mentoring-q1-a1">It's great to see that Alex's advisor is looking out for her and providing her with opportunities.</label>
+                        </li>
+                        <li>
+                            <input type="radio" id="mentoring-q1-a2" name="mentoring-q1" value="A2" onclick="selectOption('mentoring-q1-block', 'mentoring-q1-feedback-a2');">
+                            <label for="mentoring-q1-a2">I don't agree with the advisor; he is not taking into account Alex's goals.</label>
+                        </li>
+                    </ul>
+
+                    <!-- Feedback for Mentoring Question 1 - Option 1 -->
+                    <details id="mentoring-q1-feedback-a1" class="scenario-feedback-details">
+                        <summary>If you chose 'It's great to see that Alex's advisor is looking out for her', click here for Feedback</summary>
+                        <div class="feedback-content">
+                            <p class="feedback-incorrect">
+                                The advisor is falling into a Questionable Research Practice. The main goal of an advisor is to help advisees make progress in their careers and move toward achieving their career goals. In this case Alex's advisor is not paying attention to her career goals.
+                            </p>
+                        </div>
+                    </details>
+
+                    <!-- Feedback for Mentoring Question 1 - Option 2 -->
+                    <details id="mentoring-q1-feedback-a2" class="scenario-feedback-details">
+                        <summary>If you chose 'I don't agree with the advisor', click here for Feedback</summary>
+                        <div class="feedback-content">
+                            <p class="feedback-neutral">
+                                Your choice leads to the next step.
+                            </p>
+                            <details class="proceed-button-container">
+                                <summary onclick="moveToNextQuestion('mentoring-q1-block', 'mentoring-q2-block');">
+                                    Click here to proceed to Mentoring Question 2
+                                </summary>
+                                <div class="content">
+                                    You can click this button to move to the next question.
+                                </div>
+                            </details>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Mentoring Question 2 (only revealed by Q1-A1 or Q1-A2) -->
+                <div id="mentoring-q2-block" class="scenario-block" style="display: none;">
+                    <h4 style="font-size: 1.1rem; font-weight: 600; color: #1a202c; margin-bottom: 0.5rem;">Mentoring Question 2:</h4>
+                    <p class="scenario-question-text">
+                        Alex reminds her advisor that her career goal is to work in the private sector, and that she would like to defend her thesis and apply for jobs next year, as soon as a paper that they have submitted is accepted for publication. Her advisor tells her that he will not allow her to graduate next year because she just obtained some interesting data on a different project, and she also needs to publish those results. Alex comes to you for advice; what do you suggest?
+                    </p>
+                    <ul class="scenario-options">
+                        <li>
+                            <input type="radio" id="mentoring-q2-actual-a1" name="mentoring-q2-actual" value="A1" onclick="selectOption('mentoring-q2-block', 'mentoring-feedback-q2-a1-final');">
+                            <label for="mentoring-q2-actual-a1">There is not much she could do. She needs her advisor's letter of recommendation and thus she should plan on delaying her graduation.</label>
+                        </li>
+                        <li>
+                            <input type="radio" id="mentoring-q2-actual-a2" name="mentoring-q2-actual" value="A2" onclick="selectOption('mentoring-q2-block', 'mentoring-feedback2-final');">
+                            <label for="mentoring-q2-actual-a2">She should seek an independent opinion by consulting with other members of her graduate committee.</label>
+                        </li>
+                        <li>
+                            <input type="radio" id="mentoring-q2-actual-a3" name="mentoring-q2-actual" value="A3" onclick="selectOption('mentoring-q2-block', 'mentoring-feedback3-final');">
+                            <label for="mentoring-q2-actual-a3">She should tell her advisor that she will be leaving next year no matter what, and start applying for jobs.</label>
+                        </li>
+                    </ul>
+
+                    <!-- Feedback for Mentoring Q2 - Option 1 -->
+                    <details id="mentoring-feedback-q2-a1-final" class="scenario-feedback-details">
+                        <summary>If you chose 'Delay her graduation', Click here for Feedback</summary>
+                        <div class="feedback-content">
+                            <p class="feedback-neutral">
+                                The main goal of an advisor is to help mentees make progress in their projects and move toward achieving their career goals. The advisor in this case might be thinking more about the benefit of having another publication for him than on Alex's career goals. However, finishing that second publication might also benefit Alex.
+                            </p>
+                        </div>
+                    </details>
+
+                    <!-- Feedback for Mentoring Q2 - Option 2 -->
+                    <details id="mentoring-feedback2-final" class="scenario-feedback-details">
+                        <summary>If you chose 'Seek independent opinion', Click here for Feedback</summary>
+                        <div class="feedback-content">
+                            <p class="feedback-correct">
+                                Correct! This is a complicated case because the advisor's responsibility is to help Alex make progress in her project and achieve her goals, which for Alex means graduating and getting a job in the private sector. However, Alex also has the responsibility to make her best effort to move the project forward. Asking the opinion of a third party that is familiar with Alex's work (her graduate committee) might help clarify whether staying for an extra year to publish another paper is in the best interest of both Alex and her mentor.
+                            </p>
+                        </div>
+                    </details>
+
+                    <!-- Feedback for Mentoring Q2 - Option 3 -->
+                    <details id="mentoring-feedback3-final" class="scenario-feedback-details">
+                        <summary>If you chose 'Tell advisor she will leave', Click here for Feedback</summary>
+                        <div class="feedback-content">
+                            <p class="feedback-neutral">
+                                Although it might seem like her mentor is trying to keep Alex for longer than he should, this might not be the case. It is possible that her mentor is thinking that Alex would be more competitive in the job market with another paper published.
+                            </p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </details>
+
+        <p style="margin-top: 1.5rem; margin-bottom: 1rem; line-height: 1.6; color: #4a5568;">
+            Often researchers are faced with decisions that have consequences for multiple parties and that might seem to contradict one another. Carefully analyzing the situation and thinking of all the potential implications for the parties involved is important. Seeking advice from mentors or other colleagues can help you find the most ethical solution for a complicated situation.
+        </p>
+
+    </div>
+
+    <script>
+        // Function to close all feedback within a given block
+        function closeAllFeedback(blockId) {
+            document.querySelectorAll(`#${blockId} .scenario-feedback-details`).forEach(detail => {
+                detail.open = false;
+            });
+        }
+
+        // Function to handle radio button selection and display feedback
+        function selectOption(questionBlockId, feedbackIdToOpen) {
+            // Close all feedback for the current question before opening a new one
+            document.querySelectorAll(`#${questionBlockId} .scenario-feedback-details`).forEach(detail => {
+                detail.open = false;
+            });
+            document.getElementById(feedbackIdToOpen).open = true; // Open the selected feedback
+        }
+
+        // Function to move to the next question (hides current, shows next)
+        function moveToNextQuestion(currentQuestionId, nextQuestionId) {
+            document.getElementById(currentQuestionId).style.display = 'none';
+            document.getElementById(nextQuestionId).style.display = 'block';
+            closeAllFeedback(currentQuestionId); // Ensure feedback for current question is closed
+        }
+
+        // Function to move to the next scenario (hides current scenario, opens next scenario and its first question)
+        function moveToNextScenario(currentScenarioId, nextScenarioId) {
+            document.getElementById(currentScenarioId).open = false; // Collapse current scenario
+            document.getElementById(nextScenarioId).open = true;    // Open next scenario
+            
+            // Also hide all individual question blocks in the newly opened scenario, then show its first question
+            document.querySelectorAll(`#${nextScenarioId} .scenario-block`).forEach(block => {
+                block.style.display = 'none';
+            });
+            // Determine the ID of the first question block in the next scenario
+            let firstQuestionId;
+            if (nextScenarioId === 'authorship-scenario-main') {
+                firstQuestionId = 'authorship-q1-block';
+            } else if (nextScenarioId === 'funding-scenario-main') {
+                firstQuestionId = 'funding-q1-block';
+            } else if (nextScenarioId === 'mentoring-scenario-main') {
+                firstQuestionId = 'mentoring-q1-block';
+            }
+            if (firstQuestionId) {
+                document.getElementById(firstQuestionId).style.display = 'block';
+            }
+            closeAllFeedback(nextScenarioId); // Ensure no feedback is open in the newly opened scenario
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initial setup: ensure all question blocks are hidden except the first of the first scenario
+            document.querySelectorAll('.scenario-block').forEach(block => {
+                block.style.display = 'none';
+            });
+            // Show the first question of the Authorship scenario initially
+            document.getElementById('authorship-q1-block').style.display = 'block';
+
+            // Ensure all main scenario details (except Authorship) are closed initially
+            document.getElementById('authorship-scenario-main').open = true;
+            document.getElementById('funding-scenario-main').open = false;
+            document.getElementById('mentoring-scenario-main').open = false;
+
+            // Ensure all feedback details and proceed buttons are closed initially
+            document.querySelectorAll('.scenario-feedback-details').forEach(detail => {
+                detail.open = false;
+            });
+            document.querySelectorAll('.proceed-button-container').forEach(detail => {
+                detail.open = false;
+            });
+
+            // Logic for opening/closing main scenarios and showing their first question
+            document.getElementById('authorship-scenario-main').addEventListener('toggle', function() {
+                if (this.open) {
+                    document.getElementById('authorship-q1-block').style.display = 'block';
+                } else {
+                    document.querySelectorAll('#authorship-scenario-main .scenario-block').forEach(block => block.style.display = 'none');
+                    closeAllFeedback('authorship-scenario-main');
+                }
+            });
+            document.getElementById('funding-scenario-main').addEventListener('toggle', function() {
+                if (this.open) {
+                    document.getElementById('funding-q1-block').style.display = 'block';
+                } else {
+                    document.querySelectorAll('#funding-scenario-main .scenario-block').forEach(block => block.style.display = 'none');
+                    closeAllFeedback('funding-scenario-main');
+                }
+            });
+            document.getElementById('mentoring-scenario-main').addEventListener('toggle', function() {
+                if (this.open) {
+                    document.getElementById('mentoring-q1-block').style.display = 'block';
+                } else {
+                    document.querySelectorAll('#mentoring-scenario-main .scenario-block').forEach(block => block.style.display = 'none');
+                    closeAllFeedback('mentoring-scenario-main');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
