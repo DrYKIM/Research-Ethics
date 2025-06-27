@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethical Reflection: Elena and John Case Study</title>
+    <!-- Tailwind CSS CDN for basic utilities and a clean look -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        .main-content-container {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 1.5rem;
+            max-width: 800px;
+            width: 100%;
+        }
+        h1 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 1.5rem;
+        }
+        h2 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #1a202c;
+            margin-top: 1rem;
+            margin-bottom: 0.75rem;
+        }
+        p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            color: #4a5568;
+        }
+        ul {
+            list-style-type: disc;
+            padding-left: 24px;
+            margin-bottom: 1rem;
+        }
+        strong {
+            font-weight: 700;
+        }
+        em {
+            font-style: italic;
+        }
+        a {
+            color: #4f46e5;
+            text-decoration: underline;
+        }
+
+        /* Scenario Box Styling */
+        .scenario-box {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .scenario-box p {
+            margin-bottom: 0.75rem;
+            color: #1a202c;
+        }
+
+        /* Question/Hint/Feedback Details Styling */
+        .question-section {
+            background-color: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.5rem;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .question-section h4 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            color: #2d3748;
+            text-align: left; /* Align question text to left */
+        }
+        .question-details {
+            margin-top: 0.75rem;
+            margin-bottom: 0.75rem;
+            border-radius: 0.375rem;
+            overflow: hidden;
+            border: 1px solid #d1d5db; /* gray-300 */
+        }
+        .question-details summary {
+            padding: 0.6rem 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            list-style: none;
+            background-color: #e5e7eb; /* gray-200 */
+            color: #4b5563; /* gray-700 */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s ease;
+        }
+        .question-details summary:hover {
+            background-color: #d1d5db; /* gray-300 */
+        }
+        .question-details summary::after {
+            content: '+';
+            font-size: 1.2rem;
+            color: #4a5568;
+            transition: transform 0.3s ease;
+        }
+        .question-details[open] summary::after {
+            content: '-';
+            transform: rotate(0deg);
+        }
+        .question-details .content {
+            padding: 1rem;
+            background-color: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+            color: #4a5568;
+            text-align: left;
+        }
+        /* Specific styles for feedback content */
+        .feedback-content {
+            background-color: #dbeafe; /* blue-100 */
+            border-left: 4px solid #3b82f6; /* blue-500 */
+            color: #1e40af; /* blue-800 */
+            padding: 1rem;
+            margin-top: 0.5rem; /* Space from summary */
+            border-radius: 0.25rem;
+        }
+        .feedback-content p {
+            margin-bottom: 0.5rem;
+        }
+        .feedback-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* General info highlight box */
+        .info-highlight {
+            background-color: #e0f2fe;
+            border-left: 4px solid #38bdf8;
+            padding: 0.75rem;
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0.375rem;
+            color: #0c4a6e;
+        }
+        .info-highlight p {
+            margin-bottom: 0;
+        }
+
+        /* Useful Links Pod Styling */
+        .useful-links {
+            background-color: #f0f9ff;
+            border-left: 4px solid #3b82f6;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .useful-links h3 {
+            color: #1d4ed8;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+        .useful-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .useful-links li a {
+            color: #2563eb;
+            text-decoration: underline;
+            transition: color 0.2s ease;
+        }
+        .useful-links li a:hover {
+            color: #1e40af;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="main-content-container">
+        <h1>Ethical Reflection in Research</h1>
+
+        <p>Embracing the values of research integrity requires constant reflection on the way we, and others, conduct research, scholarly, or creative activities.</p>
+
+        <p class="info-highlight">Consider the questions, click on the hint to prompt your thoughts, then click "Feedback" to see our thoughts.</p>
+        <p class="mb-4">Reflect on the questions and the hints, consider your response, and continue for feedback.</p>
+
+
+        <div class="scenario-box">
+            <h3>Case Scenario: Elena and John</h3>
+            <p>Consider the case of Elena, a senior undergraduate researcher working with John, a Professor of Electrical Engineering. John writes a journal article with Elena's results, but the journal rejects their submission because a relevant graph on the paper weakly supports the conclusions.</p>
+        </div>
+
+        <!-- Question 1 -->
+        <div class="question-section">
+            <h4>Question 1: Was John correct in assuming he could remove the two data points based on the large error bars?</h4>
+            <details class="question-details">
+                <summary>Hint</summary>
+                <div class="content">
+                    <p>Think about the reproducibility of the work and the fact that Elena is a co-author.</p>
+                </div>
+            </details>
+            <details class="question-details">
+                <summary>Feedback</summary>
+                <div class="content feedback-content">
+                    <p>John should have discussed it with Elena in the first place. Could the large error bars be due to an experimental glitch under the conditions in which the particular data points were collected? A thorough analysis of the conditions is needed and re-running the experiments should have been the next step.</p>
+                </div>
+            </details>
+        </div>
+
+        <!-- Scenario continuation for Question 2 and 3 -->
+        <div class="scenario-box mt-8">
+            <p>Without telling Elena, John modifies the graph by removing two data points (which reduces the error bars and makes the results statistically significant, supporting their conclusion) and sends the revised manuscript to another journal. The journal sends a message confirming receipt to all co-authors with a copy of the manuscript, where Elena discovers the new graph. Elena gets very uncomfortable about this.</p>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question-section">
+            <h4>Question 2: Elena is concerned that this may be a case of falsification. Should she talk with John first?</h4>
+            <details class="question-details">
+                <summary>Hint</summary>
+                <div class="content">
+                    <p>Think about the fact that falsification is research misconduct and Elena is under John's supervision.</p>
+                </div>
+            </details>
+            <details class="question-details">
+                <summary>Feedback</summary>
+                <div class="content feedback-content">
+                    <p>Despite their good working relationship, Elena is not John's peer, so talking with him about such a potentially severe violation could have consequences for Elena. She would be best served by presenting the case to the chair of the Electrical Engineering department, who may intervene directly in the case (talk with John) or advise her on how to proceed with the conversation herself. She could open the discussion without making accusations and inform John that she got the advice of the chair because she was not sure how to proceed.</p>
+                </div>
+            </details>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question-section">
+            <h4>Question 3: What would be the best and worst outcomes of this case?</h4>
+            <details class="question-details">
+                <summary>Hint</summary>
+                <div class="content">
+                    <p>Think about the possibility that John acted in good faith based on the error bars. Also think about the fact that regardless of his good faith he has manipulated (falsified) data for a publication.</p>
+                </div>
+            </details>
+            <details class="question-details">
+                <summary>Feedback</summary>
+                <div class="content feedback-content">
+                    <p>The best outcome would be that John understands the implications of his action, requests retraction of the manuscript from the journal until further experimentation is completed, Elena continues working with John, and the chair gives John a second chance. The worst outcome would be that the case goes all the way to the institutional compliance office, John loses his job, the manuscript is retracted, and Elena is left without her original mentor. Elena, however, could continue the work under someone else's supervision.</p>
+                </div>
+            </details>
+        </div>
+
+        <p class="mt-8 mb-4">In situations like the one described, it is always important to get the support of someone with higher rank than the individual suspected of the violation, particularly when recognizing that your action may result in personal consequences. Integrity requires individuals to act according to their values, even at personal cost.</p>
+
+        <p class="mb-4">You might encounter irresponsible behavior in a non-research environment and will have to decide how to handle it and report it. The values associated with integrity and ethical behavior are transferrable to other aspects of life.</p>
+
+    </div>
+
+</body>
+</html>
