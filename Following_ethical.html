@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Who Ensures Research Integrity?</title>
+    <!-- Tailwind CSS CDN for basic utilities and a clean look -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        .main-content-container {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 1.5rem;
+            max-width: 800px;
+            width: 100%;
+        }
+        h1 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 1.5rem;
+        }
+        h2 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            color: #4a5568;
+        }
+        ul {
+            list-style-type: disc;
+            padding-left: 24px;
+            margin-bottom: 1rem;
+        }
+        ol {
+            list-style-type: decimal;
+            padding-left: 24px;
+            margin-bottom: 1rem;
+        }
+        strong {
+            font-weight: 700;
+        }
+        em {
+            font-style: italic;
+        }
+        a {
+            color: #4f46e5;
+            text-decoration: underline;
+        }
+
+        /* Accordion styles for roles and obligations */
+        .role-details {
+            margin-bottom: 0.75rem;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        }
+        .role-details summary {
+            padding: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            list-style: none;
+            background-color: #edf2f7;
+            color: #2d3748;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s ease;
+        }
+        .role-details summary:hover {
+            background-color: #e2e8f0;
+        }
+        .role-details summary::after {
+            content: '+';
+            font-size: 1.2rem;
+            color: #4a5568;
+            transition: transform 0.3s ease;
+        }
+        .role-details[open] summary::after {
+            content: '-';
+            transform: rotate(0deg);
+        }
+        .role-details .role-content {
+            padding: 1rem;
+            background-color: #ffffff;
+            border-top: 1px solid #e2e8f0;
+            color: #4a5568;
+        }
+        .role-content ul {
+            margin-bottom: 0; /* Remove extra margin if last element */
+        }
+        .info-highlight {
+            background-color: #e0f2fe;
+            border-left: 4px solid #38bdf8;
+            padding: 0.75rem;
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0.375rem;
+            color: #0c4a6e;
+        }
+        .info-highlight p {
+            margin-bottom: 0;
+        }
+
+        /* Decision Tree Styling */
+        #decision-tree-container {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        .decision-step {
+            background-color: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.5rem;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .decision-step h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #1a202c;
+            margin-bottom: 1rem;
+        }
+        .decision-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .decision-button {
+            background-color: #4f46e5; /* indigo-600 */
+            color: white;
+            padding: 10px 15px;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.2s ease;
+        }
+        .decision-button:hover {
+            background-color: #4338ca; /* indigo-700 */
+        }
+        .feedback-box {
+            background-color: #dbeafe; /* blue-100 */
+            border-left: 4px solid #3b82f6; /* blue-500 */
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.375rem;
+            color: #1e40af; /* blue-800 */
+        }
+        .feedback-box p {
+            margin-bottom: 0.5rem;
+        }
+        .feedback-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Useful Links Pod Styling */
+        .useful-links {
+            background-color: #f0f9ff;
+            border-left: 4px solid #3b82f6;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .useful-links h3 {
+            color: #1d4ed8;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+        .useful-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .useful-links li a {
+            color: #2563eb;
+            text-decoration: underline;
+            transition: color 0.2s ease;
+        }
+        .useful-links li a:hover {
+            color: #1e40af;
+        }
+
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="main-content-container">
+        <h1>Who is involved in ensuring that everyone learns and follows the highest standards of research and scholarly conduct?</h1>
+
+        <div class="info-highlight">
+            <p>Click on the segments to learn about the role and obligations of different individuals, institutions, and organizations.</p>
+        </div>
+
+        <h2>Research integrity: a collective effort</h2>
+        <p>Collective and individual adherence to the core values of ethical researchers is necessary to safeguard the integrity of the knowledge they generate. Many countries have established policies and procedures that foster research integrity at multiple levels, including sponsoring organizations, institutions that educate and employ researchers, publishing companies, and professional societies.</p>
+
+        <!-- Accordion for Roles and Obligations -->
+        <details class="role-details" open>
+            <summary>Government</summary>
+            <div class="role-content">
+                <p>Governments have an obligation to ensure the highest levels of integrity and the achievement of the societal benefits of all research that they sponsor with public funds and/or that is conducted in public institutions. To this end, government agencies establish policies, transparent procedures, and standards of practice. They require sponsored institutions to provide training in responsible conduct to all individuals engaged in the research enterprise.</p>
+            </div>
+        </details>
+
+        <details class="role-details">
+            <summary>Funding agencies</summary>
+            <div class="role-content">
+                <p>Research-sponsoring organizations:</p>
+                <ul>
+                    <li>Insert formal responsible conduct of research training requirements into their training grant applications</li>
+                    <li>Require reviewers to sign confidentiality agreements and declare any conflict of interest they might have with the author of proposals they are asked to review</li>
+                    <li>Prohibit reviewers from using information contained in a proposal for their benefit or that of another individual or organization.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details class="role-details">
+            <summary>Institutions and research administrators</summary>
+            <div class="role-content">
+                <p>Institutions that train and hire researchers must:</p>
+                <ul>
+                    <li>Deliver appropriate and regular instruction in responsible conduct of research</li>
+                    <li>Establish and monitor policies and procedures to ensure the highest levels of adherence to research integrity and data management</li>
+                    <li>Offer prompt and effective responses to allegations of misconduct or questionable research practices, while protecting good-faith whistleblowers.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details class="role-details">
+            <summary>Publishers & professional societies</summary>
+            <div class="role-content">
+                <p>Journal editors, publishing companies, and professional societies develop disciplinary authorship standards, guidelines for peer review, and requirements for reproducibility and data management. They also encourage authors to be ethically responsible and submit corrections or retractions when unintended errors are discovered, and have established policies for retractions when evidence of misconduct is presented.</p>
+            </div>
+        </details>
+
+        <details class="role-details">
+            <summary>Research advisors</summary>
+            <div class="role-content">
+                <p>Advisors must set a good example for their mentees by adhering to the core values of honesty, fairness, objectivity, openness, trustworthiness, and respect. They must maintain the rigor of the research enterprise, be knowledgeable about their institution's policies and procedures, be well-informed about their disciplinary standards, and stay alert and ready to provide advice to mentees or confront and correct unacceptable behavior.</p>
+            </div>
+        </details>
+
+        <details class="role-details">
+            <summary>Research trainees and members of the public</summary>
+            <div class="role-content">
+                <p>Student researchers must uphold the core values of ethical researchers, learn their institution's policies and procedures, become informed of their disciplinary standards, keep good research records, and understand how to proceed when they suspect violations of ethical standards among fellow researchers.</p>
+                <p>Members of the general public also foster research integrity by educating themselves on their rights and responsibilities if they become research subjects, by demanding that researchers conduct their studies responsibly, and by requiring accountability when public funds are used for research.</p>
+            </div>
+        </details>
+
+        <h2>What is my responsibility and that of others? What support is there?</h2>
+        <p>A situation may arise where you suspect a fellow researcher is thinking about behaving irresponsibly or has already done so. It is also possible that you have evidence of wrongdoing. The individual may be at your same hierarchical level or higher up, in your same research group or in a different one. These situations are uncomfortable, but looking the other way is inappropriate. Not taking action may compromise the integrity of the research enterprise with potential consequences to other individuals and society. What are some steps that you can take? Is whistleblowing the appropriate course of action?</p>
+
+        <p class="info-highlight">Answer the questions to find out the courses of action you could take.</p>
+
+        <!-- Decision Tree Steps -->
+        <div id="decision-tree-container">
+            <div id="q1" class="decision-step">
+                <h4>Question 1: You observe an individual behaving irresponsibly. What would you do?</h4>
+                <div class="decision-options">
+                    <button class="decision-button" data-next="q2">Talk with the individual</button>
+                    <button class="decision-button" data-next="q2">Talk with the individual's supervisor</button>
+                    <button class="decision-button" data-next="f3">Contact your institution's Office of Research Integrity</button>
+                </div>
+            </div>
+
+            <!-- Consolidated Q2 into a single div -->
+            <div id="q2" class="decision-step hidden">
+                <h4>Question 2: Is the individual behaving irresponsibly a peer or a superior?</h4>
+                <div class="decision-options">
+                    <button class="decision-button" data-next="f1">A peer</button>
+                    <button class="decision-button" data-next="f2">A superior</button>
+                </div>
+            </div>
+
+            <div id="f1" class="decision-step hidden">
+                <h4>Feedback: Peer Allegation</h4>
+                <div class="feedback-box">
+                    <p>If the individual is a peer, having a conversation, pointing out the unacceptable nature of the behavior, and providing advice on how to correct it may be all that is necessary. However, if you have evidence of research misconduct, fear retaliation from the individual, or are unsure about how to proceed, it may be best to bypass this step and report the allegation directly to the individual's supervisor.</p>
+                </div>
+                <button class="decision-button mt-4" onclick="resetDecisionTree()">Restart Scenario</button>
+            </div>
+
+            <div id="f2" class="decision-step hidden">
+                <h4>Feedback: Superior Allegation</h4>
+                <div class="feedback-box">
+                    <p>If the individual behaving irresponsibly is your superior, it is better to follow the chain of command. Depending on who is the individual in question, the order to report allegations of irresponsible behavior or misconduct is the individual's supervisor/research advisor, the director of the department, and the dean of the college. Keep in mind that retaliation is prohibited against anyone reporting irresponsible behavior in good faith.</p>
+                </div>
+                <button class="decision-button mt-4" onclick="resetDecisionTree()">Restart Scenario</button>
+            </div>
+
+            <div id="f3" class="decision-step hidden">
+                <h4>Feedback: Contacting Office of Research Integrity (OIC) Directly</h4>
+                <div class="feedback-box">
+                    <p>Contacting the institution's Office of Research Integrity (OIC) is a necessary step when reporting allegations of misconduct. However, if you reported allegations of wrongful behavior (misconduct or not) to a supervisor, that individual is now responsible for deciding whether to report it to the OIC. Note that if you feel uncomfortable discussing the issue with the alleged individual, the individual's supervisor, or anyone in the chain of command, you can go directly to OIC.</p>
+                </div>
+                <button class="decision-button mt-4" onclick="resetDecisionTree()">Restart Scenario</button>
+            </div>
+        </div> <!-- End Decision Tree Container -->
+
+        <p class="mt-8 mb-4">In the United States, the responsibility to establish policies and provide support on research integrity is distributed among various agencies, such as the U.S. Office of Research Integrity (for public health services–related cases) and the Office of the Inspector General (for other federal violations). In the United Kingdom, the UK Research Integrity Office (UKRIO) provides independent, expert, and confidential support on research integrity across all disciplines of research, from the arts and humanities to the life sciences.</p>
+
+        <p class="mb-4">Now that you have learned the role and obligations of individuals, institutions, and organizations and understand the steps you can take to report suspected violations of responsible behavior in research, reflect on the best course of action for anyone facing such a situation.</p>
+
+        <div class="useful-links">
+            <h3>Useful links</h3>
+            <ul>
+                <li><a href="https://ori.hhs.gov/" target="_blank" rel="noopener noreferrer">The U.S. Office of Research Integrity</a></li>
+                <li><a href="https://ukrio.org/" target="_blank" rel="noopener noreferrer">UK Research Integrity Office</a></li>
+                <li><a href="https://www.oig.doc.gov/" target="_blank" rel="noopener noreferrer">Office of Inspector General</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Function to re-query decision steps to ensure we have the most current elements
+            const getDecisionSteps = () => document.querySelectorAll('.decision-step');
+            
+            // Query all decision buttons once on DOMContentLoaded
+            const decisionButtons = document.querySelectorAll('.decision-button');
+            let currentStepId = 'q1'; // Start with the first question
+
+            function showStep(stepId) {
+                const targetStep = document.getElementById(stepId);
+
+                // Hide all decision steps first, with robust checks for valid elements
+                getDecisionSteps().forEach(step => {
+                    // Check if 'step' is a valid DOM Element and has a classList property
+                    if (step instanceof Element && typeof step.classList !== 'undefined') {
+                        step.classList.add('hidden');
+                    }
+                });
+
+                // If the target step exists and is a valid element, show it
+                if (targetStep instanceof Element && typeof targetStep.classList !== 'undefined') {
+                    targetStep.classList.remove('hidden');
+                } else {
+                    // Log an error if the target step is not found or invalid.
+                    // This error is crucial for debugging if element IDs are mismatched.
+                    console.error(`Error: Target element with ID '${stepId}' not found or invalid during showStep.`);
+                    
+                    // Fallback to the first question if a target step cannot be found.
+                    // This prevents the page from getting stuck on a blank screen.
+                    if (stepId !== 'q1') { // Prevent infinite loop if 'q1' itself is the issue
+                        showStep('q1');
+                    }
+                    return; 
+                }
+                currentStepId = stepId;
+            }
+
+            // Function to reset the decision tree scenario
+            function resetDecisionTree() {
+                showStep('q1'); // Always go back to the first question
+            }
+
+            // Attach click listeners to all decision buttons
+            decisionButtons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    // Use currentTarget to ensure we get the element the listener is attached to (the button itself),
+                    // which guarantees the data-next attribute is correctly read.
+                    const nextStepId = event.currentTarget.dataset.next;
+                    showStep(nextStepId);
+                });
+            });
+
+            // Make reset function globally accessible (for button onclick attribute in HTML)
+            window.resetDecisionTree = resetDecisionTree;
+
+            // Initialize the decision tree to show the first step when the page loads
+            showStep(currentStepId);
+        });
+    </script>
+</body>
+</html>
