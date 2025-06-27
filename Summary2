@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review: Key Concepts in Research Ethics</title>
+    <!-- Tailwind CSS CDN for basic utilities and a clean look -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        .main-content-container {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 1.5rem;
+            max-width: 800px;
+            width: 100%;
+        }
+        h1 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 1.5rem;
+        }
+        h2 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            color: #4a5568;
+        }
+        ul {
+            list-style-type: disc;
+            padding-left: 24px;
+            margin-bottom: 1rem;
+        }
+        strong {
+            font-weight: 700;
+        }
+        em {
+            font-style: italic;
+        }
+
+        /* Statement Block Styling */
+        .statement-block {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .statement-text {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1a202c;
+            line-height: 1.5;
+        }
+        .statement-actions {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 1rem;
+            justify-content: center;
+        }
+        .action-button {
+            background-color: #e2e8f0;
+            border: 1px solid #cbd5e1;
+            border-radius: 9999px;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        .action-button:hover {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+        .action-button.check {
+            color: #10b981; /* Green check */
+            border-color: #10b981;
+        }
+        .action-button.cross {
+            color: #ef4444; /* Red cross */
+            border-color: #ef4444;
+        }
+        .action-button.check:hover { background-color: #dcfce7; }
+        .action-button.cross:hover { background-color: #fef2f2; }
+
+        /* Feedback styling */
+        .feedback-details {
+            margin-top: 1rem;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            border: 1px solid #a78bfa; /* violet-400 */
+        }
+        .feedback-details summary {
+            padding: 0.75rem 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            list-style: none;
+            background-color: #ddd6fe; /* violet-200 */
+            color: #6d28d9; /* violet-700 */
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .feedback-details summary::after {
+            content: '»'; /* Custom marker for proceeding */
+            margin-left: 0.5rem;
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+        .feedback-details[open] summary::after {
+            transform: rotate(90deg);
+        }
+        .feedback-content-wrapper {
+            padding: 1rem;
+            background-color: #f5f3ff; /* violet-50 */
+            border-top: 1px solid #c4b5fd; /* violet-300 */
+            color: #5b21b6;
+        }
+        .feedback-text {
+            display: none; /* Hidden by default */
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+        .feedback-text.active {
+            display: block; /* Shown when active */
+        }
+        .feedback-text.correct-response {
+            font-weight: bold;
+            color: #10b981 !important; /* Green */
+        }
+        .feedback-text.incorrect-response {
+            font-style: italic;
+            color: #ef4444 !important; /* Red */
+        }
+        
+        .statement-counter {
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #4a5568;
+        }
+
+        /* Next button styling */
+        .navigation-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+        .nav-button {
+            background-color: #4f46e5;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .nav-button:hover {
+            background-color: #4338ca;
+        }
+        .nav-button:disabled {
+            background-color: #9ca3af;
+            cursor: not-allowed;
+        }
+
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="main-content-container">
+        <h1>Review: Key Concepts in Research Ethics</h1>
+
+        <p>Individuals planning to conduct research projects with animals or human subjects must contact the appropriate office at their institution to ensure that they obtain any required training and approvals before the start of their work.</p>
+
+        <p class="mt-6 mb-4">Review some of the key concepts for this module by selecting the "check" if you think the statement is correct, or select the "cross" if you think the statement is incorrect. Read the feedback before clicking "Next" to move onto the next statement.</p>
+        
+        <p class="mb-4">Reflect on the eight statements, and consider if they are correct or incorrect. Then continue on for some feedback.</p>
+
+        <div id="quiz-statements">
+            <!-- Statement 1 -->
+            <div id="statement-1" class="statement-block">
+                <p class="statement-counter">Statement 1 of 8</p>
+                <p class="statement-text">Respect for persons, beneficence, and justice are the three ethical principles stated in the Belmont Report.</p>
+                <div class="statement-actions">
+                    <button class="action-button check" data-statement="1" data-choice="correct">✔</button>
+                    <button class="action-button cross" data-statement="1" data-choice="incorrect">✖</button>
+                </div>
+                <details id="feedback-1" class="feedback-details">
+                    <summary>Show Feedback</summary>
+                    <div class="feedback-content-wrapper">
+                        <p id="s1-correct-feedback" class="feedback-text correct-response">
+                            Correct. These principles form the basis for the ethical framework that guides the use of human subjects in research.
+                        </p>
+                        <p id="s1-incorrect-feedback" class="feedback-text incorrect-response">
+                            Incorrect. These principles were stated in the Belmont Report and form the basis for the ethical framework that guides the use of human subjects in research.
+                        </p>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Statement 2 -->
+            <div id="statement-2" class="statement-block hidden">
+                <p class="statement-counter">Statement 2 of 8</p>
+                <p class="statement-text">The 3 Rs (replace, reduce, refine) are the key principles that ensure ethical treatment of animals in research.</p>
+                <div class="statement-actions">
+                    <button class="action-button check" data-statement="2" data-choice="correct">✔</button>
+                    <button class="action-button cross" data-statement="2" data-choice="incorrect">✖</button>
+                </div>
+                <details id="feedback-2" class="feedback-details">
+                    <summary>Show Feedback</summary>
+                    <div class="feedback-content-wrapper">
+                        <p id="s2-correct-feedback" class="feedback-text correct-response">
+                            Correct. Following the 3 Rs (replace, reduce, refine) when designing a project with animal subjects will help minimize and possibly avoid the use of animals in research.
+                        </p>
+                        <p id="s2-incorrect-feedback" class="feedback-text incorrect-response">
+                            Incorrect. The 3 Rs (replace, reduce, refine) are the three key ethical principles of research with animals. Following these principles when designing a project with animal subjects will help minimize and possibly avoid the use of animals in research.
+                        </p>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Statement 3 -->
+            <div id="statement-3" class="statement-block hidden">
+                <p class="statement-counter">Statement 3 of 8</p>
+                <p class="statement-text">The Belmont Report was a theoretical document that outlined the principles for ethical human research but did not explain the practical applications of these principles.</p>
+                <div class="statement-actions">
+                    <button class="action-button check" data-statement="3" data-choice="correct">✔</button>
+                    <button class="action-button cross" data-statement="3" data-choice="incorrect">✖</button>
+                </div>
+                <details id="feedback-3" class="feedback-details">
+                    <summary>Show Feedback</summary>
+                    <div class="feedback-content-wrapper">
+                        <p id="s3-correct-feedback" class="feedback-text correct-response">
+                            Correct. The Belmont Report linked the three basic principles of research with human subjects (respect for persons, beneficence, and justice) with three specific practical applications for conducting the research (informed consent, assessment of risks and benefits, and selection of subjects).
+                        </p>
+                        <p id="s3-incorrect-feedback" class="feedback-text incorrect-response">
+                            Incorrect. The Belmont Report linked the three basic principles of research with human subjects (respect for persons, beneficence, and justice) with three specific practical applications that must be followed when conducting research with human subjects (informed consent, assessment of risks and benefits, and selection of subjects).
+                        </p>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Statement 4 -->
+            <div id="statement-4" class="statement-block hidden">
+                <p class="statement-counter">Statement 4 of 8</p>
+                <p class="statement-text">The principle of respect for persons means that the researcher has to obtain informed consent for any subjects that will participate in the study prior to conducting the research.</p>
+                <div class="statement-actions">
+                    <button class="action-button check" data-statement="4" data-choice="correct">✔</button>
+                    <button class="action-button cross" data-statement="4" data-choice="incorrect">✖</button>
+                </div>
+                <details id="feedback-4" class="feedback-details">
+                    <summary>Show Feedback</summary>
+                    <div class="feedback-content-wrapper">
+                        <p id="s4-correct-feedback" class="feedback-text correct-response">
+                            Correct. The principle of respect for persons is applied through the practice of obtaining informed consent. That is, the researcher must inform the subject and ensure the subject understands the information and consents voluntarily, before the subject starts participating in the study.
+                        </p>
+                        <p id="s4-incorrect-feedback" class="feedback-text incorrect-response">
+                            Incorrect. The principle of respect for persons is applied through the practice of obtaining informed consent. That is, the researcher must inform the subject and ensure the subject understands the information and consents voluntarily, before the subject starts participating in the study.
+                        </p>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Statement 5 -->
+            <div id="statement-5" class="statement-block hidden">
+                <p class="statement-counter">Statement 5 of 8</p>
+                <p class="statement-text">The application of the principle of justice in the selection of subjects requires researchers to include special groups, such as children, in all research projects that involve human subjects.</p>
+                <div class="statement-actions">
+                    <button class="action-button check" data-statement="5" data-choice="correct">✔</button>
+                    <button class="action-button cross" data-statement="5" data-choice="incorrect">✖</button>
+                </div>
+                <details id="feedback-5" class="feedback-details">
+                    <summary>Show Feedback</summary>
+                    <div class="feedback-content-wrapper">
+                        <p id="s5-correct-feedback" class="feedback-text correct-response">
+                            Correct. The principle of justice applied in the selection of subjects requires the selection to be fair. This means not excluding/including subjects based on biases, but it also means protecting vulnerable subjects such as children. Therefore, children and other vulnerable subjects should be specially protected and only involved in research under certain conditions.
+                        </p>
+                        <p id="s5-incorrect-feedback" class="feedback-text incorrect-response">
+                            Incorrect. The principle of justice applied in the selection of subjects requires the selection to be fair. This means not excluding/including subjects based on biases, but it also means protecting vulnerable subjects such as children. Therefore, children and other vulnerable subjects should be specially protected and only involved in research under certain conditions.
+                        </p>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Statement 6 -->
+            <div id="statement-6" class="statement-block hidden">
+                <p class="statement-counter">Statement 6 of 8</p>
+                <p class="statement-text">Training on the ethical principles of research with animals is only important for those who conduct research with animals.</p>
+                <div class="statement-actions">
+                    <button class="action-button check" data-statement="6" data-choice="correct">✔</button>
+                    <button class="action-button cross" data-statement="6" data-choice="incorrect">✖</button>
+                </div>
+                <details id="feedback-6" class="feedback-details">
+                    <summary>Show Feedback</summary>
+                    <div class="feedback-content-wrapper">
+                        <p id="s6-correct-feedback" class="feedback-text correct-response">
+                            Correct. Everyone uses products or medical treatments that have been developed through research in animals, and thus being informed about the ethical guidelines that govern this type of research is important for all. However, only those conducting research with animals are required to undergo additional training on this subject.
+                        </p>
+                        <p id="s6-incorrect-feedback" class="feedback-text incorrect-response">
+                            Incorrect. Everyone uses products or medical treatments that have been developed through research in animals, and thus being informed about the ethical guidelines that govern this type of research is important for all. However, only those conducting research with animals are required to undergo additional training on this subject.
+                        </p>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Statement 7 -->
+            <div id="statement-7" class="statement-block hidden">
+                <p class="statement-counter">Statement 7 of 8</p>
+                <p class="statement-text">The principle of beneficence is applied through the assessment of risks and benefits, and ensures that human subjects participating in research are never harmed.</p>
+                <div class="statement-actions">
+                    <button class="action-button check" data-statement="7" data-choice="correct">✔</button>
+                    <button class="action-button cross" data-statement="7" data-choice="incorrect">✖</button>
+                </div>
+                <details id="feedback-7" class="feedback-details">
+                    <summary>Show Feedback</summary>
+                    <div class="feedback-content-wrapper">
+                        <p id="s7-correct-feedback" class="feedback-text correct-response">
+                            Correct. Although many research studies result in no harm to the subjects, there are studies that have a potential risk for harm. For example, clinical trials always have the potential risk of a drug having side effects. The principle of beneficence requires researchers to determine all possible sources of potential risk and anticipated benefits, often in consultation with individuals from the participant populations, and ensure that the anticipated benefits are greater than the potential risks.
+                        </p>
+                        <p id="s7-incorrect-feedback" class="feedback-text incorrect-response">
+                            Incorrect. Although many research studies result in no harm to the subjects, there are studies that have a potential risk for harm. For example, clinical trials always have the potential risk of a drug having side effects. The principle of beneficence requires researchers to determine all possible sources of potential risk and anticipated benefits, often in consultation with individuals from the participant populations, and ensure that the anticipated benefits are greater than the potential risks.
+                        </p>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Statement 8 -->
+            <div id="statement-8" class="statement-block hidden">
+                <p class="statement-counter">Statement 8 of 8</p>
+                <p class="statement-text">Is it acceptable that in a project aimed at collecting information from a very diverse community to inform public policy, the survey is only distributed via email?</p>
+                <div class="statement-actions">
+                    <button class="action-button check" data-statement="8" data-choice="correct">✔</button>
+                    <button class="action-button cross" data-statement="8" data-choice="incorrect">✖</button>
+                </div>
+                <details id="feedback-8" class="feedback-details">
+                    <summary>Show Feedback</summary>
+                    <div class="feedback-content-wrapper">
+                        <p id="s8-correct-feedback" class="feedback-text correct-response">
+                            Correct. The principle of justice emphasizes the importance of selecting subjects fairly. Distributing a survey by email will unfairly leave out those individuals who do not have Internet access or who cannot comfortably read the message and respond (e.g. people who are visually impaired, non-English speakers). A just survey distribution would consider these accessibility issues and provide multiple ways of distributing and responding to the survey to allow fair inclusion of everyone in the community.
+                        </p>
+                        <p id="s8-incorrect-feedback" class="feedback-text incorrect-response">
+                            Incorrect. The principle of justice emphasizes the importance of selecting subjects fairly. Distributing a survey by email will unfairly leave out those individuals who do not have Internet access or who cannot comfortably read the message and respond (e.g. people who are visually impaired, non-English speakers). A just survey distribution would consider these accessibility issues and provide multiple ways of distributing and responding to the survey to allow fair inclusion of everyone in the community.
+                        </p>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <div class="navigation-controls">
+            <button id="prev-statement-btn" class="nav-button" disabled>Previous</button>
+            <button id="next-statement-btn" class="nav-button">Next</button>
+        </div>
+
+        <p class="mt-8 mb-4">If you are planning a project that will involve human or animal subjects, be sure to contact the appropriate committee (IRB or IACUC) at your institution for advice when you are starting to plan your project.</p>
+        <p class="mb-4">Furthermore, understanding the ethical implications and regulations governing this type of research is important for everyone. Every day we benefit from the results of research conducted with human or animal subjects. The voices of informed citizens are key to ensure that these standards are upheld, especially as we move further into a future where digital technologies allow large-scale research on unsuspecting users.</p>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const statements = document.querySelectorAll('.statement-block');
+            const prevBtn = document.getElementById('prev-statement-btn');
+            const nextBtn = document.getElementById('next-statement-btn');
+            let currentStatementIndex = 0;
+
+            const statementCorrectAnswers = {
+                1: 'correct', // Respect for persons, beneficence, justice are Belmont principles.
+                2: 'correct', // 3 Rs are key principles for animal ethics.
+                3: 'incorrect', // Belmont Report explained practical applications.
+                4: 'correct', // Respect for persons means informed consent.
+                5: 'incorrect', // Justice in selection means fair, but not always include children; protect vulnerable.
+                6: 'incorrect', // Training on animal ethics important for all, not just conductors.
+                7: 'incorrect', // Beneficence ensures benefit > risk, not necessarily "never harmed."
+                8: 'incorrect'  // Email only survey is not acceptable for diverse community.
+            };
+
+            function showStatement(index) {
+                statements.forEach((statement, i) => {
+                    statement.classList.add('hidden'); // Hide all
+                });
+                statements[index].classList.remove('hidden'); // Show current
+
+                // Update statement counter
+                const counterElement = statements[index].querySelector('.statement-counter');
+                if (counterElement) {
+                    counterElement.textContent = `Statement ${index + 1} of ${statements.length}`;
+                }
+
+                // Update navigation buttons
+                prevBtn.disabled = (index === 0);
+                nextBtn.disabled = (index === statements.length - 1);
+            }
+
+            function resetFeedback(statementId) {
+                const feedbackDetails = document.getElementById(`feedback-${statementId}`);
+                const correctFeedback = document.getElementById(`s${statementId}-correct-feedback`);
+                const incorrectFeedback = document.getElementById(`s${statementId}-incorrect-feedback`);
+
+                feedbackDetails.open = false;
+                correctFeedback.classList.remove('active');
+                incorrectFeedback.classList.remove('active');
+            }
+
+            // Event listeners for check/cross buttons
+            document.querySelectorAll('.action-button').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const statementId = parseInt(event.target.dataset.statement);
+                    const userChoice = event.target.dataset.choice;
+
+                    const feedbackDetails = document.getElementById(`feedback-${statementId}`);
+                    const correctFeedbackText = document.getElementById(`s${statementId}-correct-feedback`);
+                    const incorrectFeedbackText = document.getElementById(`s${statementId}-incorrect-feedback`);
+
+                    // Reset any previously active feedback for this statement
+                    correctFeedbackText.classList.remove('active');
+                    incorrectFeedbackText.classList.remove('active');
+
+                    // Determine if user's choice matches the correct answer
+                    const isChoiceCorrect = (userChoice === statementCorrectAnswers[statementId]);
+
+                    // Activate the appropriate feedback based on the user's choice
+                    // Note: 'correct-feedback' element in HTML contains the text that describes the statement as 'Correct.'
+                    // 'incorrect-feedback' element in HTML contains the text that describes the statement as 'Incorrect.'
+                    // We need to show the one that matches the *actual* correctness of the statement based on `statementCorrectAnswers`.
+                    if (isChoiceCorrect) {
+                        correctFeedbackText.classList.add('active'); // Show "Correct." feedback
+                    } else {
+                        incorrectFeedbackText.classList.add('active'); // Show "Incorrect." feedback
+                    }
+
+                    feedbackDetails.open = true; // Open the feedback section
+                });
+            });
+
+            // Navigation button listeners
+            prevBtn.addEventListener('click', () => {
+                if (currentStatementIndex > 0) {
+                    resetFeedback(currentStatementIndex + 1); // Reset feedback for current statement before moving
+                    currentStatementIndex--;
+                    showStatement(currentStatementIndex);
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (currentStatementIndex < statements.length - 1) {
+                    resetFeedback(currentStatementIndex + 1); // Reset feedback for current statement before moving
+                    currentStatementIndex++;
+                    showStatement(currentStatementIndex);
+                }
+            });
+
+            // Initialize by showing the first statement
+            showStatement(currentStatementIndex);
+        });
+    </script>
+</body>
+</html>
