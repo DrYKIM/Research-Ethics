@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionable Research Practices</title>
+    <!-- Tailwind CSS CDN for basic utilities and a clean look -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        .main-content-container {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 1.5rem;
+            max-width: 800px;
+            width: 100%;
+        }
+        h1 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 1.5rem;
+        }
+        h2 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            color: #4a5568;
+        }
+        ul {
+            list-style-type: disc;
+            padding-left: 24px;
+            margin-bottom: 1rem;
+        }
+        strong {
+            font-weight: 700;
+        }
+        em {
+            font-style: italic;
+        }
+        a {
+            color: #4f46e5;
+            text-decoration: underline;
+        }
+
+        /* Scenario Card Styling */
+        .scenario-card {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .scenario-text {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1a202c;
+            line-height: 1.5;
+        }
+
+        /* Options Group Styling */
+        .options-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
+        .option-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 10px 12px;
+            background-color: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .option-item:hover {
+            background-color: #f0f2f5;
+            border-color: #a78bfa;
+        }
+        .option-item input[type="radio"] {
+            margin-top: 4px; /* Align radio button to top of text */
+            margin-right: 10px;
+            flex-shrink: 0; /* Prevent radio button from shrinking */
+        }
+        .option-item.selected {
+            background-color: #e0e7ff; /* indigo-100 */
+            border-color: #6366f1; /* indigo-500 */
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Check Answer Button */
+        .check-answer-button {
+            background-color: #4f46e5;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            display: block; /* Make it a block element to center with margin auto */
+            margin: 0 auto 1.5rem auto; /* Center and add bottom margin */
+        }
+        .check-answer-button:hover {
+            background-color: #4338ca;
+        }
+        .check-answer-button:disabled {
+            background-color: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        /* Feedback Container & Content Items */
+        .scenario-feedback-container {
+            border-radius: 0.5rem;
+            overflow: hidden;
+            border: 1px solid #c7d2fe; /* indigo-200 */
+            background-color: #f5f3ff; /* violet-50 */
+            padding: 1.25rem;
+        }
+        .feedback-content-item {
+            margin-bottom: 0.75rem;
+            line-height: 1.5;
+            color: #5b21b6; /* violet-800 */
+        }
+        .feedback-content-item:last-child {
+            margin-bottom: 0;
+        }
+        .feedback-content-item strong {
+            color: #1a202c; /* Darker for emphasis in feedback */
+        }
+        /* Specific feedback styles based on "Correct." or "Incorrect." text */
+        .feedback-content-item .correct-indicator {
+            font-weight: bold;
+            color: #10b981 !important; /* Green */
+        }
+        .feedback-content-item .incorrect-indicator {
+            font-style: italic;
+            color: #ef4444 !important; /* Red */
+        }
+
+        /* Navigation Buttons */
+        .navigation-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+        .nav-button {
+            background-color: #4f46e5;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .nav-button:hover {
+            background-color: #4338ca;
+        }
+        .nav-button:disabled {
+            background-color: #9ca3af;
+            cursor: not-allowed;
+        }
+        .info-intro-box {
+            background-color: #e0f2fe;
+            border-left: 4px solid #38bdf8;
+            padding: 0.75rem;
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0.375rem;
+            color: #0c4a6e;
+        }
+        .info-intro-box p {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="main-content-container">
+        <h1>Avoiding Questionable Research Practices</h1>
+
+        <p>In this activity you are presented with a handful of scenarios that are relatively common occurrences in the research and scholarly world and that individuals entering this world should be aware of to avoid developing questionable research practices.</p>
+
+        <div class="info-intro-box">
+            <p>Select your answer then click the "Check answer" button to see if you're correct.</p>
+        </div>
+
+        <div id="scenario-quiz-container">
+            <!-- Scenario 1: Sheila and Sean - Scooping -->
+            <div id="scenario-1" class="scenario-card">
+                <p class="scenario-text">Sheila, a graduate student, presents very promising preliminary results at a conference that requires that only unpublished results be presented. Three months later, while waiting for news from the journal to which Sheila and her mentor, Sean, submitted their work for publication, Sean receives an article for review from another journal reporting results almost identical to theirs. They realize the author was present at the conference. What recourse, if any, do Sheila and Sean have to claim their intellectual property?</p>
+                <div class="options-group" data-correct-value="option3">
+                    <label class="option-item">
+                        <input type="radio" name="scenario_1_options" value="option1" class="scenario-radio">
+                        <span>They have no recourse; they were scooped</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="scenario_1_options" value="option2" class="scenario-radio">
+                        <span>Contact the conference organizer to request support for their claim</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="scenario_1_options" value="option3" class="scenario-radio">
+                        <span>Contact the editors of both journals and explain the situation</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="scenario_1_options" value="option4" class="scenario-radio">
+                        <span>Contact the author of the article and request an explanation</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="scenario_1_options" value="option5" class="scenario-radio">
+                        <span>Answers 3 and 4</span>
+                    </label>
+                </div>
+                <button class="check-answer-button" data-scenario-id="scenario-1">Check answer</button>
+                <div class="scenario-feedback-container hidden" id="feedback-scenario-1">
+                    <div class="feedback-content-item hidden" data-option-value="option1">
+                        <p><span class="incorrect-indicator">This is the incorrect answer.</span> Given the short time elapsed since the conference, it is likely that the other author was already working on the same idea. His questionable practice was not informing Sheila during the conference that he was independently working on the same project. The correct procedure, however, is for Sean to contact the two journal editors, who should in turn contact the other author. In such cases, journals typically publish the two articles simultaneously with a note indicating the simultaneous and independent nature of the discovery by both research groups.</p>
+                    </div>
+                    <div class="feedback-content-item hidden" data-option-value="option2">
+                        <p><span class="incorrect-indicator">This is the incorrect answer.</span> Given the short time elapsed since the conference, it is likely that the other author was already working on the same idea. His questionable practice was not informing Sheila during the conference that he was independently working on the same project. The correct procedure, however, is for Sean to contact the two journal editors, who should in turn contact the other author. In such cases, journals typically publish the two articles simultaneously with a note indicating the simultaneous and independent nature of the discovery by both research groups.</p>
+                    </div>
+                    <div class="feedback-content-item hidden" data-option-value="option3">
+                        <p><span class="correct-indicator">Correct!</span> Given the short time elapsed since the conference, it is likely that the other author was already working on the same idea. His questionable practice was not informing Sheila during the conference that he was independently working on the same project. The correct procedure, however, is for Sean to contact the two journal editors, who should in turn contact the other author. In such cases, journals typically publish the two articles simultaneously with a note indicating the simultaneous and independent nature of the discovery by both research groups.</p>
+                    </div>
+                    <div class="feedback-content-item hidden" data-option-value="option4">
+                        <p><span class="incorrect-indicator">This is the incorrect answer.</span> Given the short time elapsed since the conference, it is likely that the other author was already working on the same idea. His questionable practice was not informing Sheila during the conference that he was independently working on the same project. The correct procedure, however, is for Sean to contact the two journal editors, who should in turn contact the other author. In such cases, journals typically publish the two articles simultaneously with a note indicating the simultaneous and independent nature of the discovery by both research groups.</p>
+                    </div>
+                    <div class="feedback-content-item hidden" data-option-value="option5">
+                        <p><span class="incorrect-indicator">This is the incorrect answer.</span> Given the short time elapsed since the conference, it is likely that the other author was already working on the same idea. His questionable practice was not informing Sheila during the conference that he was independently working on the same project. The correct procedure, however, is for Sean to contact the two journal editors, who should in turn contact the other author. In such cases, journals typically publish the two articles simultaneously with a note indicating the simultaneous and independent nature of the discovery by both research groups.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scenario 2: Vishnu and Lana - Co-authorship/Acknowledgment -->
+            <div id="scenario-2" class="scenario-card hidden">
+                <p class="scenario-text">Vishnu received notice that an article he submitted for publication in a prominent journal has been accepted with major editorial (language) revisions. Vishnu asks for help from his colleague, Lana, who knows the field. Lana edits the article, and Vishnu would like to compensate her for her help. What can Vishnu offer?</p>
+                <div class="options-group" data-correct-value="option5">
+                    <label class="option-item">
+                        <input type="radio" name="scenario_2_options" value="option1" class="scenario-radio">
+                        <span>Lana should be a co-author in the article</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="scenario_2_options" value="option2" class="scenario-radio">
+                        <span>Lana should receive an acknowledgment in the article</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="scenario_2_options" value="option3" class="scenario-radio">
+                        <span>Lana should not accept either co-authorship or an acknowledgment</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="scenario_2_options" value="option4" class="scenario-radio">
+                        <span>Vishnu could pay Lana for her efforts</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="scenario_2_options" value="option5" class="scenario-radio">
+                        <span>Answers 2 and 4</span>
+                    </label>
+                </div>
+                <button class="check-answer-button" data-scenario-id="scenario-2">Check answer</button>
+                <div class="scenario-feedback-container hidden" id="feedback-scenario-2">
+                    <div class="feedback-content-item hidden" data-option-value="option1">
+                        <p><span class="incorrect-indicator">This is the incorrect answer.</span> Journals offer guidelines as to what constitutes a significant contribution to a study, and honorary co-authorship is not one of them. Think about what would happen if a reader of the journal asked Lana to explain her results. Giving a written acknowledgment and/or paying someone to edit your writing is acceptable.</p>
+                    </div>
+                    <div class="feedback-content-item hidden" data-option-value="option2">
+                        <p><span class="incorrect-indicator">This is the incorrect answer.</span> Journals offer guidelines as to what constitutes a significant contribution to a study, and honorary co-authorship is not one of them. Think about what would happen if a reader of the journal asked Lana to explain her results. Giving a written acknowledgment and/or paying someone to edit your writing is acceptable.</p>
+                    </div>
+                    <div class="feedback-content-item hidden" data-option-value="option3">
+                        <p><span class="incorrect-indicator">This is the incorrect answer.</span> Journals offer guidelines as to what constitutes a significant contribution to a study, and honorary co-authorship is not one of them. Think about what would happen if a reader of the journal asked Lana to explain her results. Giving a written acknowledgment and/or paying someone to edit your writing is acceptable.</p>
+                    </div>
+                    <div class="feedback-content-item hidden" data-option-value="option4">
+                        <p><span class="incorrect-indicator">This is the incorrect answer.</span> Journals offer guidelines as to what constitutes a significant contribution to a study, and honorary co-authorship is not one of them. Think about what would happen if a reader of the journal asked Lana to explain her results. Giving a written acknowledgment and/or paying someone to edit your writing is acceptable.</p>
+                    </div>
+                    <div class="feedback-content-item hidden" data-option-value="option5">
+                        <p><span class="correct-indicator">Correct!</span> Journals offer guidelines as to what constitutes a significant contribution to a study, and honorary co-authorship is not one of them. Think about what would happen if a reader of the journal asked Lana to explain her results. Giving a written acknowledgment and/or paying someone to edit your writing is acceptable.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scenario 3: Undergraduate researcher - Calculation error -->
+            <div id="scenario-3" class="scenario-card hidden">
+                <p class="scenario-text">You are an undergraduate researcher using the research notebook of a former graduate student to learn the techniques and reproduce/validate already published results. In the process you discover a calculation error that would change some of those results. The best course of action is:</p>
+                <div class="options-group" data-correct-value="option2">
+                    <label class="option-item">
+                        <input type="radio" name="scenario_3_options" value="option1" class="scenario-radio">
+                        <span>Throw a party with your best friends to celebrate your cleverness</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="scenario_3_options" value="option2" class="scenario-radio">
+                        <span>Inform the research advisor who directed the work</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="scenario_3_options" value="option3" class="scenario-radio">
+                        <span>Do nothing since the work is already published</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="scenario_3_options" value="option4" class="scenario-radio">
+                        <span>Directly inform the journal editor yourself</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="scenario_3_options" value="option5" class="scenario-radio">
+                        <span>Inform your university's office of compliance</span>
+                    </label>
+                </div>
+                <button class="check-answer-button" data-scenario-id="scenario-3">Check answer</button>
+                <div class="scenario-feedback-container hidden" id="feedback-scenario-3">
+                    <div class="feedback-content-item hidden" data-option-value="option1">
+                        <p><span class="incorrect-indicator">This is the incorrect answer.</span> The correct approach is to inform the professor who is directing the work, who should in turn contact the journal editor to arrange for the submission of a correction. Since you are not a co-author, you are not supposed to contact the editor. If the recalculated results substantially change the conclusion of the article, the editor may require that the professor submits a retraction request. There is no penalty for honest errors.</p>
+                    </div>
+                    <div class="feedback-content-item hidden" data-option-value="option2">
+                        <p><span class="correct-indicator">Correct!</span> The correct approach is to inform the professor who is directing the work, who should in turn contact the journal editor to arrange for the submission of a correction. Since you are not a co-author, you are not supposed to contact the editor. If the recalculated results substantially change the conclusion of the article, the editor may require that the professor submits a retraction request. There is no penalty for honest errors.</p>
+                    </div>
+                    <div class="feedback-content-item hidden" data-option-value="option3">
+                        <p><span class="incorrect-indicator">This is the incorrect answer.</span> The correct approach is to inform the professor who is directing the work, who should in turn contact the journal editor to arrange for the submission of a correction. Since you are not a co-author, you are not supposed to contact the editor. If the recalculated results substantially change the conclusion of the article, the editor may require that the professor submits a retraction request. There is no penalty for honest errors.</p>
+                    </div>
+                    <div class="feedback-content-item hidden" data-option-value="option4">
+                        <p><span class="incorrect-indicator">This is the incorrect answer.</span> The correct approach is to inform the professor who is directing the work, who should in turn contact the journal editor to arrange for the submission of a correction. Since you are not a co-author, you are not supposed to contact the editor. If the recalculated results substantially change the conclusion of the article, the editor may require that the professor submits a retraction request. There is no penalty for honest errors.</p>
+                    </div>
+                    <div class="feedback-content-item hidden" data-option-value="option5">
+                        <p><span class="incorrect-indicator">This is the incorrect answer.</span> The correct approach is to inform the professor who is directing the work, who should in turn contact the journal editor to arrange for the submission of a correction. Since you are not a co-author, you are not supposed to contact the editor. If the recalculated results substantially change the conclusion of the article, the editor may require that the professor submits a retraction request. There is no penalty for honest errors.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scenario 4: Miriam - Funding proposal review breach -->
+            <div id="scenario-4" class="scenario-card hidden">
+                <p class="scenario-text">Miriam, a professor, submits a proposal for funding to a federal agency in which she includes a good amount of preliminary results, but it is declined. Based on the writing style, she suspects that one of the reviewers is someone whose work she knows well, because he is a competitor, working in the same field as hers. She decides to complete the study without funding. When she is getting close to writing a manuscript 18 months later, she reads a very recent article with her exact hypothesis and experimental design published by the individual she suspected was a reviewer of the proposal. What can she do?</p>
+                <div class="options-group" data-correct-value="option3">
+                    <label class="option-item">
+                        <input type="radio" name="scenario_4_options" value="option1" class="scenario-radio">
+                        <span>Contact the reviewer and accuse him of scooping her</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="scenario_4_options" value="option2" class="scenario-radio">
+                        <span>Contact her institution's office of compliance</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="scenario_4_options" value="option3" class="scenario-radio">
+                        <span>Contact the federal agency's office of research integrity to file a complaint</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="scenario_4_options" value="option4" class="scenario-radio">
+                        <span>Accept that she got scooped and move on</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="scenario_4_options" value="option5" class="scenario-radio">
+                        <span>Answers 2 and 3</span>
+                    </label>
+                </div>
+                <button class="check-answer-button" data-scenario-id="scenario-4">Check answer</button>
+                <div class="scenario-feedback-container hidden" id="feedback-scenario-4">
+                    <div class="feedback-content-item hidden" data-option-value="option1">
+                        <p><span class="incorrect-indicator">This is the incorrect answer.</span> Funding agencies prohibit peer reviewers from using information contained in a proposal for their benefit or the benefit of another individual or organization. Reviewers sign a confidentiality certification before gaining access to proposals. In the present case Miriam's best course of action is to contact the federal agency, which may launch an investigation into the case.</p>
+                    </div>
+                    <div class="feedback-content-item hidden" data-option-value="option2">
+                        <p><span class="incorrect-indicator">This is the incorrect answer.</span> Funding agencies prohibit peer reviewers from using information contained in a proposal for their benefit or the benefit of another individual or organization. Reviewers sign a confidentiality certification before gaining access to proposals. In the present case Miriam's best course of action is to contact the federal agency, which may launch an investigation into the case.</p>
+                    </div>
+                    <div class="feedback-content-item hidden" data-option-value="option3">
+                        <p><span class="correct-indicator">Correct!</span> Funding agencies prohibit peer reviewers from using information contained in a proposal for their benefit or the benefit of another individual or organization. Reviewers sign a confidentiality certification before gaining access to proposals. In the present case Miriam's best course of action is to contact the federal agency, which may launch an investigation into the case.</p>
+                    </div>
+                    <div class="feedback-content-item hidden" data-option-value="option4">
+                        <p><span class="incorrect-indicator">This is the incorrect answer.</span> Funding agencies prohibit peer reviewers from using information contained in a proposal for their benefit or the benefit of another individual or organization. Reviewers sign a confidentiality certification before gaining access to proposals. In the present case Miriam's best course of action is to contact the federal agency, which may launch an investigation into the case.</p>
+                    </div>
+                    <div class="feedback-content-item hidden" data-option-value="option5">
+                        <p><span class="incorrect-indicator">This is the incorrect answer.</span> Funding agencies prohibit peer reviewers from using information contained in a proposal for their benefit or the benefit of another individual or organization. Reviewers sign a confidentiality certification before gaining access to proposals. In the present case Miriam's best course of action is to contact the federal agency, which may launch an investigation into the case.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scenario 5: Thomas - Unencrypted data -->
+            <div id="scenario-5" class="scenario-card hidden">
+                <p class="scenario-text">Thomas is a staff assistant in the admissions office at a university. A scholarship program manager on campus needs admissions information for over 200 students who are applying for a particular scholarship and reaches out to Thomas for the information. The information contains students' names, IDs, social security numbers, grades, and other personal and educational information. Thomas prepares a spreadsheet and sends it to the scholarship manager via his university email without encrypting it with password protection. What are the possible consequences of such neglect?</p>
+                <div class="options-group" data-correct-value="option5">
+                    <label class="option-item">
+                        <input type="radio" name="scenario_5_options" value="option1" class="scenario-radio">
+                        <span>The unencrypted information could be hacked by someone outside the university and cause harm to the students</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="scenario_5_options" value="option2" class="scenario-radio">
+                        <span>The unencrypted information could be hacked by someone within the university and cause harm to the students</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="scenario_5_options" value="option3" class="scenario-radio">
+                        <span>There are no consequences; university employees can exchange emails within their domain without any risk</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="scenario_5_options" value="option4" class="scenario-radio">
+                        <span>Thomas can face disciplinary action for his neglect</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="scenario_5_options" value="option5" class="scenario-radio">
+                        <span>Answers 1, 2, and 4</span>
+                    </label>
+                </div>
+                <button class="check-answer-button" data-scenario-id="scenario-5">Check answer</button>
+                <div class="scenario-feedback-container hidden" id="feedback-scenario-5">
+                    <div class="feedback-content-item hidden" data-option-value="option1">
+                        <p><span class="incorrect-indicator">This is the incorrect answer.</span> It is the responsibility of anyone who handles data containing sensitive information to ensure its protection. When the information must be sent via email, it is imperative to code or encrypt the data. All individuals who handle sensitive data are trained at institutions and organizations on how to share data electronically, and those who jeopardize data security face disciplinary consequences.</p>
+                    </div>
+                    <div class="feedback-content-item hidden" data-option-value="option2">
+                        <p><span class="incorrect-indicator">This is the incorrect answer.</span> It is the responsibility of anyone who handles data containing sensitive information to ensure its protection. When the information must be sent via email, it is imperative to code or encrypt the data. All individuals who handle sensitive data are trained at institutions and organizations on how to share data electronically, and those who jeopardize data security face disciplinary consequences.</p>
+                    </div>
+                    <div class="feedback-content-item hidden" data-option-value="option3">
+                        <p><span class="incorrect-indicator">This is the incorrect answer.</span> It is the responsibility of anyone who handles data containing sensitive information to ensure its protection. When the information must be sent via email, it is imperative to code or encrypt the data. All individuals who handle sensitive data are trained at institutions and organizations on how to share data electronically, and those who jeopardize data security face disciplinary consequences.</p>
+                    </div>
+                    <div class="feedback-content-item hidden" data-option-value="option4">
+                        <p><span class="incorrect-indicator">This is the incorrect answer.</span> It is the responsibility of anyone who handles data containing sensitive information to ensure its protection. When the information must be sent via email, it is imperative to code or encrypt the data. All individuals who handle sensitive data are trained at institutions and organizations on how to share data electronically, and those who jeopardize data security face disciplinary consequences.</p>
+                    </div>
+                    <div class="feedback-content-item hidden" data-option-value="option5">
+                        <p><span class="correct-indicator">Correct!</span> It is the responsibility of anyone who handles data containing sensitive information to ensure its protection. When the information must be sent via email, it is imperative to code or encrypt the data. All individuals who handle sensitive data are trained at institutions and organizations on how to share data electronically, and those who jeopardize data security face disciplinary consequences.</p>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- End scenario-quiz-container -->
+
+        <div class="navigation-controls">
+            <button id="prev-scenario-btn" class="nav-button" disabled>Previous</button>
+            <button id="next-scenario-btn" class="nav-button">Next</button>
+        </div>
+
+        <p class="mt-8 mb-4">The body of knowledge accumulated by humankind is the result of an honest and accurate representation of the work of researchers and scholars. Ethical behavior in research and scholarly work advances disciplinary knowledge and results in multiple benefits to society.</p>
+
+        <p class="mb-4">The principles behind research integrity are so universal that they can be applied to the multiple decisions we make at home, in the workplace, and as citizens.</p>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const scenarioCards = document.querySelectorAll('.scenario-card');
+            const prevBtn = document.getElementById('prev-scenario-btn');
+            const nextBtn = document.getElementById('next-scenario-btn');
+            let currentScenarioIndex = 0;
+
+            function showScenario(index) {
+                scenarioCards.forEach((card, i) => {
+                    card.classList.add('hidden'); // Hide all cards
+                });
+                scenarioCards[index].classList.remove('hidden'); // Show current card
+
+                // Update navigation buttons
+                prevBtn.disabled = (index === 0);
+                nextBtn.disabled = (index === scenarioCards.length - 1);
+            }
+
+            function resetScenarioState(scenarioId) {
+                const scenarioCard = document.getElementById(scenarioId);
+                if (!scenarioCard) return;
+
+                // Uncheck all radio buttons
+                const radios = scenarioCard.querySelectorAll('.scenario-radio');
+                radios.forEach(radio => {
+                    radio.checked = false;
+                });
+
+                // Remove selection highlighting from labels
+                const optionItems = scenarioCard.querySelectorAll('.option-item');
+                optionItems.forEach(item => {
+                    item.classList.remove('selected');
+                });
+
+                // Hide all feedback
+                const feedbackContainer = scenarioCard.querySelector('.scenario-feedback-container');
+                if (feedbackContainer) {
+                    feedbackContainer.classList.add('hidden');
+                    const feedbackItems = feedbackContainer.querySelectorAll('.feedback-content-item');
+                    feedbackItems.forEach(item => {
+                        item.classList.add('hidden');
+                    });
+                }
+
+                // Enable the check answer button
+                const checkButton = scenarioCard.querySelector('.check-answer-button');
+                if (checkButton) {
+                    checkButton.disabled = false;
+                }
+            }
+
+            // Event listener for radio button selection
+            scenarioCards.forEach(card => {
+                const radios = card.querySelectorAll('.scenario-radio');
+                radios.forEach(radio => {
+                    radio.addEventListener('change', (event) => {
+                        // Remove 'selected' class from all option items in this scenario
+                        const optionsGroup = event.target.closest('.options-group');
+                        if (optionsGroup) { // Safety check
+                            optionsGroup.querySelectorAll('.option-item').forEach(item => {
+                                item.classList.remove('selected');
+                            });
+                        }
+                        // Add 'selected' class to the parent label of the checked radio button
+                        const parentOptionItem = event.target.closest('.option-item');
+                        if (parentOptionItem) { // Safety check
+                            parentOptionItem.classList.add('selected');
+                        }
+
+                        // Re-enable the check answer button for this scenario
+                        const scenarioCardElement = event.target.closest('.scenario-card');
+                        if (scenarioCardElement) { // Safety check
+                            const checkButton = scenarioCardElement.querySelector('.check-answer-button');
+                            if (checkButton) {
+                                checkButton.disabled = false;
+                            }
+                        }
+
+                        // Hide feedback immediately on new selection
+                        const scenarioId = event.target.closest('.scenario-card').id;
+                        const feedbackContainer = document.getElementById(`feedback-${scenarioId}`);
+                        if (feedbackContainer) {
+                            feedbackContainer.classList.add('hidden');
+                            feedbackContainer.querySelectorAll('.feedback-content-item').forEach(item => item.classList.add('hidden'));
+                        }
+                    });
+                });
+            });
+
+            // Event listener for "Check answer" buttons
+            document.querySelectorAll('.check-answer-button').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const scenarioId = event.currentTarget.dataset.scenarioId;
+                    const scenarioCard = document.getElementById(scenarioId);
+                    
+                    if (!scenarioCard) {
+                        console.error(`Scenario card with ID ${scenarioId} not found.`);
+                        return;
+                    }
+
+                    const selectedRadio = scenarioCard.querySelector(`.scenario-radio:checked`);
+                    
+                    if (!selectedRadio) {
+                        // A simple div that appears and disappears would be suitable for user feedback.
+                        // For now, console log for debugging in Canvas.
+                        console.warn("Please select an answer before checking.");
+                        return;
+                    }
+
+                    const selectedValue = selectedRadio.value;
+                    const feedbackContainer = document.getElementById(`feedback-${scenarioId}`);
+                    
+                    if (!feedbackContainer) {
+                        console.error(`Feedback container with ID feedback-${scenarioId} not found.`);
+                        return;
+                    }
+
+                    // Hide all specific feedback items first
+                    feedbackContainer.querySelectorAll('.feedback-content-item').forEach(item => {
+                        item.classList.add('hidden');
+                    });
+
+                    // Show the relevant feedback item
+                    const specificFeedback = feedbackContainer.querySelector(`.feedback-content-item[data-option-value="${selectedValue}"]`);
+                    if (specificFeedback) {
+                        specificFeedback.classList.remove('hidden');
+                    } else {
+                        console.error(`Feedback item for selected value '${selectedValue}' not found in scenario ${scenarioId}.`);
+                    }
+
+                    feedbackContainer.classList.remove('hidden'); // Show the overall feedback container
+                    event.currentTarget.disabled = true; // Disable check button after showing feedback
+                });
+            });
+
+            // Navigation button listeners
+            prevBtn.addEventListener('click', () => {
+                if (currentScenarioIndex > 0) {
+                    resetScenarioState(`scenario-${currentScenarioIndex + 1}`); // Reset current scenario state
+                    currentScenarioIndex--;
+                    showScenario(currentScenarioIndex);
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (currentScenarioIndex < scenarioCards.length - 1) {
+                    resetScenarioState(`scenario-${currentScenarioIndex + 1}`); // Reset current scenario state
+                    currentScenarioIndex++;
+                    showScenario(currentScenarioIndex);
+                }
+            });
+
+            // Initialize by showing the first scenario
+            showScenario(currentScenarioIndex);
+        });
+    </script>
+</body>
+</html>
