@@ -1,0 +1,42 @@
+<div style="margin: 20px 0; max-width: 100%; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #333; line-height: 1.6; text-align: left;">
+    
+    <!-- Introduction Section -->
+    <div style="background-color: #f8f9fa; padding: 25px; border-radius: 8px; border-left: 5px solid #0073e6; margin-bottom: 30px; text-align: left;">
+        <p style="margin: 0 0 15px 0;">Advancement in any discipline is achieved by building on the work created by others; therefore it relies on the <strong>integrity</strong> of all researchers in the discipline. Unethical behaviors compromise the advancement of a discipline and could have harmful consequences for society.</p>
+        <p style="margin: 0;">Conducting research, scholarly, or creative activities with integrity means following the standards of integrity for the discipline. These ethical principles will not only help you conduct your project with integrity, they can guide you to become an ethical and productive member of society.</p>
+    </div>
+
+    <!-- Case Study Card -->
+    <div style="background-color: #fff; border: 1px solid #e1e4e8; border-radius: 8px; overflow: hidden; text-align: left;">
+        <div style="background-color: #343a40; color: white; padding: 15px 20px;">
+            <h3 style="margin: 0; color: white; font-size: 1.25rem; text-align: left;">Case Study: The LaCour Paper</h3>
+        </div>
+        
+        <div style="padding: 25px;">
+            <h4 style="color: #0073e6; margin: 0 0 10px 0; text-align: left;">The Paper (2014)</h4>
+            <p style="margin-bottom: 20px;">In 2014, graduate student Michael LaCour and his supervisor Donald Green published a landmark paper in <em>Science</em>. They claimed that interaction with a gay interviewer changed voters' attitudes toward gay marriage. These findings contradicted decades of research on the permanence of political beliefs.</p>
+
+            <h4 style="color: #d9534f; margin: 0 0 10px 0; text-align: left;">Failure to Reproduce Results</h4>
+            <p style="margin-bottom: 10px;">UC-Berkeley students David Broockman and Joshua Kalla found inconsistencies:</p>
+            <ul style="list-style-type: square; padding-left: 20px; margin-bottom: 20px; text-align: left;">
+                <li style="margin-bottom: 8px;"><strong>Funding:</strong> LaCour claimed to pay 10,000 subjects $100 each ($1M total), funds he did not have.</li>
+                <li style="margin-bottom: 8px;"><strong>Records:</strong> The survey company had no record of working with LaCour.</li>
+                <li style="margin-bottom: 8px;"><strong>Data Similarity:</strong> The data was remarkably similar to an existing public dataset.</li>
+            </ul>
+
+            <h4 style="color: #0073e6; margin: 0 0 10px 0; text-align: left;">The Consequences</h4>
+            <p style="margin: 0;">LaCour was unable to provide original data. Investigation suggested the survey was never implemented. <strong>LaCour lost his faculty position at Princeton University</strong> and the paper was retracted.</p>
+        </div>
+    </div>
+
+    <!-- Conclusion & Navigation -->
+    <div style="margin-top: 30px; padding: 20px 0; border-top: 1px solid #eee; font-size: 0.9em; color: #666; text-align: left;">
+        <p style="margin-bottom: 15px;">One of the key ways to evaluate the trustworthiness of a discovery is to independently reproduce those results. This requires researchers to be honest and transparent about their methodology. Unethical behaviors can directly or indirectly harm colleagues, the discipline, and society.</p>
+        
+        <p style="margin-bottom: 20px;"><em>Sources: Broockman, Kalla & Aronow (2014); Retraction Watch (2015); Lin (2015).</em></p>
+        
+        <div style="background-color: #e7f3ff; color: #004085; padding: 15px; border-radius: 4px; display: inline-block; font-weight: bold; text-align: left;">
+            Click "Next" to read about a case of unethical behavior in research.
+        </div>
+    </div>
+</div>
