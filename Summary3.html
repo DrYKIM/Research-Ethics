@@ -26,6 +26,7 @@
             padding: 1.5rem;
             max-width: 800px;
             width: 100%;
+            margin: 0 auto;
         }
         h1 {
             font-size: 2.25rem;
@@ -164,6 +165,27 @@
         .reset-button:hover {
             background-color: #b91c1c; /* red-700 */
         }
+
+        /* Final Guidance Box */
+        .final-guidance {
+            background-color: #f0fdf4;
+            border: 2px solid #22c55e;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-top: 3rem;
+            text-align: center;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .final-guidance h3 {
+            color: #166534;
+            margin-top: 0;
+            font-size: 1.5rem;
+        }
+        .final-guidance p {
+            color: #15803d;
+            font-weight: 500;
+            margin-bottom: 0;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -200,6 +222,12 @@
 
         <p class="mt-8 mb-4">Regardless of the topic, all research must be planned, executed, and reported with integrity to maintain trust in the advancement of knowledge. To make that possible, it is not only necessary that individuals, organizations, and governments establish discipline-specific ethical guidelines, but everyone must follow them with unwavering consistency. Fostering research integrity is a skill that can be easily transferred to every other non-research decision one makes at the personal and professional level.</p>
 
+        <!-- Final Guidance / Next Steps -->
+        <div class="final-guidance">
+            <h3>Module Complete</h3>
+            <p>This is the end of <strong>Part III</strong>. Please go back to <strong>CANVAS</strong> and complete the <strong>Part III quiz</strong>.</p>
+        </div>
+
     </div>
 
     <script>
@@ -224,8 +252,6 @@
                     }
 
                     // Remove any previous 'incorrect-match' highlight on all boxes
-                    // This ensures that if the user clicks a new box after a failed attempt,
-                    // the red highlight on previously clicked incorrect boxes is removed.
                     matchBoxes.forEach(b => b.classList.remove('incorrect-match'));
 
                     if (selectedBox === null) {
@@ -250,11 +276,12 @@
                             box.classList.add('incorrect-match');
 
                             // After a short delay, remove the incorrect highlight and deselect the first box
+                            const firstBox = selectedBox;
                             setTimeout(() => {
-                                selectedBox.classList.remove('selected', 'incorrect-match');
-                                box.classList.remove('incorrect-match'); // Remove incorrect class from the second box too
-                                selectedBox = null; // Reset selection after failed attempt
+                                firstBox.classList.remove('selected', 'incorrect-match');
+                                box.classList.remove('incorrect-match');
                             }, 1000); // 1 second delay
+                            selectedBox = null; // Reset selection after failed attempt
                         }
                     }
                 });
