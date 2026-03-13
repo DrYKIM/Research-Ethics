@@ -1,12 +1,12 @@
-Part I: Research Integrity
+Part I: Research Integrity  
 1. Why is research integrity important?
-https://drykim.github.io/Research-Ethics/why_important.html
-How confident do you feel making decisions that have ethical implications?
-Universal principles of research ethics
-Violations of ethical behavior in scholarly activities
-Ethical decision-making in research: more than avoiding misconduct
-Research Integrity Summary
-(These are all created as page in CANVAS)
+https://drykim.github.io/Research-Ethics/why_important.html  
+How confident do you feel making decisions that have ethical implications?  
+Universal principles of research ethics  
+Violations of ethical behavior in scholarly activities  
+Ethical decision-making in research: more than avoiding misconduct  
+Research Integrity Summary  
+(These are all created as page in CANVAS)  
 
 Part II: Ethical work with animal and human subjects
 Principles of research ethics with human and animal subject ( https://drykim.github.io/Research-Ethics/Principles.html)
