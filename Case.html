@@ -26,6 +26,7 @@
             padding: 1.5rem;
             max-width: 800px;
             width: 100%;
+            margin: 0 auto;
         }
         h1 {
             font-size: 2.25rem; /* text-4xl */
@@ -163,25 +164,42 @@
             color: #ef4444 !important; /* Red */
         }
 
-        /* Continue link styling */
-        .continue-link-container {
-            text-align: center;
-            margin-top: 2rem;
+        /* Navigation Button Container */
+        .navigation-footer {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e2e8f0;
         }
-        .continue-link {
-            display: inline-block;
-            background-color: #4f46e5;
+        .next-button {
+            display: inline-flex;
+            align-items: center;
+            background-color: #0284c7; /* sky-600 */
             color: white;
-            padding: 10px 20px;
-            border-radius: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
             font-weight: 600;
             text-decoration: none;
-            transition: background-color 0.2s ease;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
         }
-        .continue-link:hover {
-            background-color: #4338ca;
+        .next-button:hover {
+            background-color: #0369a1; /* sky-700 */
+            transform: translateX(4px);
         }
-
+        .next-button svg {
+            margin-left: 0.5rem;
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+        .next-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-right: 0.5rem;
+            opacity: 0.9;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -258,12 +276,15 @@
 
         <p class="mt-8 mb-4">Understanding the ethical principles of working with animal or human subjects is necessary for those conducting research with these types of subjects. However, it is also important for all citizens to be informed about these principles. It is the responsibility of all citizens to keep researchers accountable, contribute to the public discussion of these policies, and be aware of their rights as potential research subjects.</p>
 
-        <!-- You can add a continue link here if desired -->
-        <!--
-        <div class="continue-link-container">
-            <a href="#" class="continue-link">Continue to Next Topic</a>
+        <!-- Next Page Navigation -->
+        <div class="navigation-footer">
+            <a href="https://drykim.github.io/Research-Ethics/Summary2" class="next-button">
+                <span class="next-label">Next:</span> Summary of Research with Human Subject
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+            </a>
         </div>
-        -->
 
     </div>
 
@@ -279,8 +300,8 @@
 
             actionButtons.forEach(button => {
                 button.addEventListener('click', (event) => {
-                    const scenarioId = event.target.dataset.scenario;
-                    const userChoice = event.target.dataset.choice; // 'ethical' or 'unethical'
+                    const scenarioId = event.target.dataset.scenario || event.target.parentElement.dataset.scenario;
+                    const userChoice = event.target.dataset.choice || event.target.parentElement.dataset.choice;
 
                     const feedbackDetails = document.getElementById(`feedback-${scenarioId}`);
                     const correctFeedback = document.getElementById(`${scenarioId}-correct-feedback`);
@@ -291,7 +312,7 @@
                     correctFeedback.classList.remove('active');
                     incorrectFeedback.classList.remove('active');
 
-                    // Determine if the user's choice was correct for this scenario
+                    // Determine if the user's choice was correct
                     const isChoiceCorrect = (userChoice === scenarioCorrectAnswers[scenarioId]);
 
                     if (isChoiceCorrect) {
