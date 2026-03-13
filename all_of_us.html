@@ -26,6 +26,7 @@
             padding: 1.5rem;
             max-width: 800px;
             width: 100%;
+            margin: 0 auto;
         }
         h1 {
             font-size: 2.25rem;
@@ -91,7 +92,6 @@
             margin-top: 1rem;
             margin-bottom: 1rem;
         }
-        /* Removed .conversation-details and related styles */
 
         /* Data Sensitivity Levels Styling */
         .data-level-box {
@@ -105,20 +105,25 @@
         .data-level-box strong {
             color: #065f46;
         }
-        .data-level-box:nth-child(2) { /* Level 2 */
+        .data-level-box:nth-of-type(1) { /* Level 1 */
+            background-color: #ecfdf5;
+            border-color: #34d399;
+            color: #065f46;
+        }
+        .data-level-box:nth-of-type(2) { /* Level 2 */
             background-color: #fffbeb; /* amber-50 */
             border-color: #fbbf24; /* amber-400 */
             color: #b45309; /* amber-800 */
         }
-        .data-level-box:nth-child(2) strong {
+        .data-level-box:nth-of-type(2) strong {
             color: #b45309;
         }
-        .data-level-box:nth-child(3) { /* Level 3 */
+        .data-level-box:nth-of-type(3) { /* Level 3 */
             background-color: #fef2f2; /* red-50 */
             border-color: #ef4444; /* red-500 */
             color: #991b1b; /* red-800 */
         }
-        .data-level-box:nth-child(3) strong {
+        .data-level-box:nth-of-type(3) strong {
             color: #991b1b;
         }
 
@@ -148,6 +153,43 @@
         }
         .useful-links li a:hover {
             color: #1e40af; /* blue-800 */
+        }
+
+        /* Navigation Button Container */
+        .navigation-footer {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        .next-button {
+            display: inline-flex;
+            align-items: center;
+            background-color: #0284c7; /* sky-600 */
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+        .next-button:hover {
+            background-color: #0369a1; /* sky-700 */
+            transform: translateX(4px);
+        }
+        .next-button svg {
+            margin-left: 0.5rem;
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+        .next-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-right: 0.5rem;
+            opacity: 0.9;
         }
     </style>
 </head>
@@ -194,8 +236,16 @@
                 <li><a href="https://research.princeton.edu/research-integrity/data-management-security" target="_blank" rel="noopener noreferrer">Information from Princeton University on best practices for protecting human research data.</a></li>
             </ul>
         </div>
-    </div>
 
-    <!-- Removed the JavaScript related to sequential details tags -->
+        <!-- Next Page Navigation -->
+        <div class="navigation-footer">
+            <a href="https://drykim.github.io/Research-Ethics/Protecting" class="next-button">
+                <span class="next-label">Next:</span> Protecting research data
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+            </a>
+        </div>
+    </div>
 </body>
 </html>
