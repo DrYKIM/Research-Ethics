@@ -26,6 +26,7 @@
             padding: 1.5rem;
             max-width: 800px;
             width: 100%;
+            margin: 0 auto;
         }
         h1 {
             font-size: 2.25rem; /* text-4xl */
@@ -130,7 +131,7 @@
             justify-content: space-between;
             align-items: center;
             transition: all 0.2s ease;
-            position: relative; /* For absolute positioning of label if needed */
+            position: relative; 
         }
         .statement-item:hover {
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -144,7 +145,7 @@
             cursor: pointer;
             outline: none;
             transition: all 0.2s ease;
-            color: #4a5568; /* Default text color */
+            color: #4a5568; 
         }
         .category-select:focus {
             border-color: #a78bfa; /* violet-400 */
@@ -152,20 +153,55 @@
         }
 
         /* Category specific styles for statements */
-        .statement-confident { background-color: #dcfce7; border-color: #86efac; } /* Green tint */
-        .statement-need-info { background-color: #fffdf0; border-color: #fde68a; } /* Orange tint */
-        .statement-new-topic { background-color: #fff5f5; border-color: #fca5a5; } /* Red tint */
+        .statement-confident { background-color: #dcfce7; border-color: #86efac; } 
+        .statement-need-info { background-color: #fffdf0; border-color: #fde68a; } 
+        .statement-new-topic { background-color: #fff5f5; border-color: #fca5a5; } 
 
-        /* Category specific styles for select boxes (optional, but good for consistency) */
         .category-select.confident { background-color: #22c55e; color: white; border-color: #22c55e;}
         .category-select.need-info { background-color: #f59e0b; color: white; border-color: #f59e0b;}
         .category-select.new-topic { background-color: #ef4444; color: white; border-color: #ef4444;}
-
 
         .note-text {
             font-size: 0.875rem; /* text-sm */
             color: #6b7280; /* gray-500 */
             margin-top: 1.5rem;
+        }
+
+        /* Navigation Button Container */
+        .navigation-footer {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        .next-button {
+            display: inline-flex;
+            align-items: center;
+            background-color: #0284c7; /* sky-600 */
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+        .next-button:hover {
+            background-color: #0369a1; /* sky-700 */
+            transform: translateX(4px);
+        }
+        .next-button svg {
+            margin-left: 0.5rem;
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+        .next-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-right: 0.5rem;
+            opacity: 0.9;
         }
     </style>
 </head>
@@ -175,9 +211,8 @@
 
         <p>Research that uses animals or humans as subjects is key for the advancement of many disciplines. For example, testing newly developed drugs on animals tells us whether the drugs will be safe to test on humans. However, it is the responsibility of the researcher to ensure that animal and human subjects are treated with respect, and to prevent unnecessary suffering.</p>
 
-        <p class="mt-6 mb-4 text-gray-700"></p>
         <div style="background-color: #e0f2fe; border-left: 4px solid #38bdf8; padding: 0.75rem; margin-top: 1rem; margin-bottom: 1.5rem; border-radius: 0.375rem; color: #0c4a6e;">
-            <p>Read about a controversial case using human subjects. Click on each section to find out more.</p>
+            <p style="margin-bottom: 0;">Read about a controversial case using human subjects. Click on each section to find out more.</p>
         </div>
 
 
@@ -231,7 +266,7 @@
 
         <!-- Confidence Rating Activity -->
         <div id="confidence-rating-section">
-            <h3 class="mb-4">Rate the statements based on your level of confidence of your knowledge on the topic.</h3>
+            <h3 class="mb-4" style="margin-top: 0;">Rate the statements based on your level of confidence of your knowledge on the topic.</h3>
             
             <ul id="statement-list">
                 <li class="statement-item" data-id="s1">
@@ -308,6 +343,16 @@
                 </li>
             </ul>
             <p class="note-text">If you are not entirely confident about the appropriate ethics and regulations guiding use of animals or human subjects in research, you will be able to gain more information about these topics throughout this module.</p>
+        </div>
+
+        <!-- Next Page Navigation -->
+        <div class="navigation-footer">
+            <a href="https://drykim.github.io/Research-Ethics/ethical_guidelines_human_subjects.html" class="next-button">
+                <span class="next-label">Next:</span> Ethical Guidelines for Human Subjects
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+            </a>
         </div>
 
     </div>
