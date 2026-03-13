@@ -26,6 +26,7 @@
             padding: 1.5rem;
             max-width: 800px;
             width: 100%;
+            margin: 0 auto;
         }
         h1 {
             font-size: 2.25rem;
@@ -71,12 +72,14 @@
             border-radius: 0.5rem;
             padding: 1rem;
             margin-bottom: 1.5rem;
+            min-height: 250px;
         }
         .statement-text {
             font-weight: 600;
             margin-bottom: 1rem;
             color: #1a202c;
             line-height: 1.5;
+            font-size: 1.1rem;
         }
         .statement-actions {
             display: flex;
@@ -118,22 +121,22 @@
             margin-top: 1rem;
             border-radius: 0.5rem;
             overflow: hidden;
-            border: 1px solid #a78bfa; /* violet-400 */
+            border: 1px solid #a78bfa;
         }
         .feedback-details summary {
             padding: 0.75rem 1rem;
             font-weight: 600;
             cursor: pointer;
             list-style: none;
-            background-color: #ddd6fe; /* violet-200 */
-            color: #6d28d9; /* violet-700 */
+            background-color: #ddd6fe;
+            color: #6d28d9;
             text-align: center;
             display: flex;
             justify-content: center;
             align-items: center;
         }
         .feedback-details summary::after {
-            content: '»'; /* Custom marker for proceeding */
+            content: '»';
             margin-left: 0.5rem;
             font-size: 1.2rem;
             transition: transform 0.3s ease;
@@ -143,8 +146,8 @@
         }
         .feedback-content-wrapper {
             padding: 1rem;
-            background-color: #f5f3ff; /* violet-50 */
-            border-top: 1px solid #c4b5fd; /* violet-300 */
+            background-color: #f5f3ff;
+            border-top: 1px solid #c4b5fd;
             color: #5b21b6;
         }
         .feedback-text {
@@ -157,11 +160,11 @@
         }
         .feedback-text.correct-response {
             font-weight: bold;
-            color: #10b981 !important; /* Green */
+            color: #10b981 !important;
         }
         .feedback-text.incorrect-response {
             font-style: italic;
-            color: #ef4444 !important; /* Red */
+            color: #ef4444 !important;
         }
         
         .statement-counter {
@@ -169,33 +172,64 @@
             font-weight: 600;
             margin-bottom: 1rem;
             color: #4a5568;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
-        /* Next button styling */
+        /* Navigation controls */
         .navigation-controls {
             display: flex;
             justify-content: space-between;
             margin-top: 2rem;
+            gap: 1rem;
         }
         .nav-button {
             background-color: #4f46e5;
             color: white;
-            padding: 10px 20px;
+            padding: 10px 24px;
             border-radius: 0.5rem;
             font-weight: 600;
             text-decoration: none;
             border: none;
             cursor: pointer;
-            transition: background-color 0.2s ease;
+            transition: all 0.2s ease;
+            flex: 1;
+            text-align: center;
         }
-        .nav-button:hover {
+        .nav-button:hover:not(:disabled) {
             background-color: #4338ca;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
         .nav-button:disabled {
             background-color: #9ca3af;
             cursor: not-allowed;
+            opacity: 0.5;
         }
 
+        /* Final Guidance Box */
+        .final-guidance {
+            background-color: #f0fdf4;
+            border: 2px solid #22c55e;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-top: 3rem;
+            text-align: center;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .final-guidance h3 {
+            color: #166534;
+            margin-top: 0;
+            font-size: 1.5rem;
+        }
+        .final-guidance p {
+            color: #15803d;
+            font-weight: 500;
+            margin-bottom: 0;
+        }
+        .hidden {
+            display: none !important;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -207,7 +241,7 @@
 
         <p class="mt-6 mb-4">Review some of the key concepts for this module by selecting the "check" if you think the statement is correct, or select the "cross" if you think the statement is incorrect. Read the feedback before clicking "Next" to move onto the next statement.</p>
         
-        <p class="mb-4">Reflect on the eight statements, and consider if they are correct or incorrect. Then continue on for some feedback.</p>
+        <p class="mb-8">Reflect on the eight statements, and consider if they are correct or incorrect. Then continue on for some feedback.</p>
 
         <div id="quiz-statements">
             <!-- Statement 1 -->
@@ -380,12 +414,18 @@
         </div>
 
         <div class="navigation-controls">
-            <button id="prev-statement-btn" class="nav-button" disabled>Previous</button>
-            <button id="next-statement-btn" class="nav-button">Next</button>
+            <button id="prev-statement-btn" class="nav-button" disabled>Previous Statement</button>
+            <button id="next-statement-btn" class="nav-button">Next Statement</button>
         </div>
 
-        <p class="mt-8 mb-4">If you are planning a project that will involve human or animal subjects, be sure to contact the appropriate committee (IRB or IACUC) at your institution for advice when you are starting to plan your project.</p>
+        <p class="mt-12 mb-4">If you are planning a project that will involve human or animal subjects, be sure to contact the appropriate committee (IRB or IACUC) at your institution for advice when you are starting to plan your project.</p>
         <p class="mb-4">Furthermore, understanding the ethical implications and regulations governing this type of research is important for everyone. Every day we benefit from the results of research conducted with human or animal subjects. The voices of informed citizens are key to ensure that these standards are upheld, especially as we move further into a future where digital technologies allow large-scale research on unsuspecting users.</p>
+
+        <!-- Final Guidance / Next Steps -->
+        <div class="final-guidance">
+            <h3>Module Complete</h3>
+            <p>When completing this, go back to <strong>CANVAS</strong>, and take the <strong>Part II quiz</strong>.</p>
+        </div>
 
     </div>
 
@@ -397,29 +437,22 @@
             let currentStatementIndex = 0;
 
             const statementCorrectAnswers = {
-                1: 'correct', // Respect for persons, beneficence, justice are Belmont principles.
-                2: 'correct', // 3 Rs are key principles for animal ethics.
-                3: 'incorrect', // Belmont Report explained practical applications.
-                4: 'correct', // Respect for persons means informed consent.
-                5: 'incorrect', // Justice in selection means fair, but not always include children; protect vulnerable.
-                6: 'incorrect', // Training on animal ethics important for all, not just conductors.
-                7: 'incorrect', // Beneficence ensures benefit > risk, not necessarily "never harmed."
-                8: 'incorrect'  // Email only survey is not acceptable for diverse community.
+                1: 'correct', 
+                2: 'correct', 
+                3: 'incorrect',
+                4: 'correct', 
+                5: 'incorrect',
+                6: 'incorrect', 
+                7: 'incorrect', 
+                8: 'incorrect' 
             };
 
             function showStatement(index) {
                 statements.forEach((statement, i) => {
-                    statement.classList.add('hidden'); // Hide all
+                    statement.classList.add('hidden');
                 });
-                statements[index].classList.remove('hidden'); // Show current
+                statements[index].classList.remove('hidden');
 
-                // Update statement counter
-                const counterElement = statements[index].querySelector('.statement-counter');
-                if (counterElement) {
-                    counterElement.textContent = `Statement ${index + 1} of ${statements.length}`;
-                }
-
-                // Update navigation buttons
                 prevBtn.disabled = (index === 0);
                 nextBtn.disabled = (index === statements.length - 1);
             }
@@ -429,12 +462,11 @@
                 const correctFeedback = document.getElementById(`s${statementId}-correct-feedback`);
                 const incorrectFeedback = document.getElementById(`s${statementId}-incorrect-feedback`);
 
-                feedbackDetails.open = false;
-                correctFeedback.classList.remove('active');
-                incorrectFeedback.classList.remove('active');
+                if (feedbackDetails) feedbackDetails.open = false;
+                if (correctFeedback) correctFeedback.classList.remove('active');
+                if (incorrectFeedback) incorrectFeedback.classList.remove('active');
             }
 
-            // Event listeners for check/cross buttons
             document.querySelectorAll('.action-button').forEach(button => {
                 button.addEventListener('click', (event) => {
                     const statementId = parseInt(event.target.dataset.statement);
@@ -444,31 +476,24 @@
                     const correctFeedbackText = document.getElementById(`s${statementId}-correct-feedback`);
                     const incorrectFeedbackText = document.getElementById(`s${statementId}-incorrect-feedback`);
 
-                    // Reset any previously active feedback for this statement
                     correctFeedbackText.classList.remove('active');
                     incorrectFeedbackText.classList.remove('active');
 
-                    // Determine if user's choice matches the correct answer
                     const isChoiceCorrect = (userChoice === statementCorrectAnswers[statementId]);
 
-                    // Activate the appropriate feedback based on the user's choice
-                    // Note: 'correct-feedback' element in HTML contains the text that describes the statement as 'Correct.'
-                    // 'incorrect-feedback' element in HTML contains the text that describes the statement as 'Incorrect.'
-                    // We need to show the one that matches the *actual* correctness of the statement based on `statementCorrectAnswers`.
                     if (isChoiceCorrect) {
-                        correctFeedbackText.classList.add('active'); // Show "Correct." feedback
+                        correctFeedbackText.classList.add('active');
                     } else {
-                        incorrectFeedbackText.classList.add('active'); // Show "Incorrect." feedback
+                        incorrectFeedbackText.classList.add('active');
                     }
 
-                    feedbackDetails.open = true; // Open the feedback section
+                    feedbackDetails.open = true;
                 });
             });
 
-            // Navigation button listeners
             prevBtn.addEventListener('click', () => {
                 if (currentStatementIndex > 0) {
-                    resetFeedback(currentStatementIndex + 1); // Reset feedback for current statement before moving
+                    resetFeedback(currentStatementIndex + 1);
                     currentStatementIndex--;
                     showStatement(currentStatementIndex);
                 }
@@ -476,13 +501,12 @@
 
             nextBtn.addEventListener('click', () => {
                 if (currentStatementIndex < statements.length - 1) {
-                    resetFeedback(currentStatementIndex + 1); // Reset feedback for current statement before moving
+                    resetFeedback(currentStatementIndex + 1);
                     currentStatementIndex++;
                     showStatement(currentStatementIndex);
                 }
             });
 
-            // Initialize by showing the first statement
             showStatement(currentStatementIndex);
         });
     </script>
