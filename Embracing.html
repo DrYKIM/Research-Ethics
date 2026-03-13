@@ -26,6 +26,7 @@
             padding: 1.5rem;
             max-width: 800px;
             width: 100%;
+            margin: 0 auto;
         }
         h1 {
             font-size: 2.25rem;
@@ -102,29 +103,29 @@
             margin-top: 0;
             margin-bottom: 1rem;
             color: #2d3748;
-            text-align: left; /* Align question text to left */
+            text-align: left;
         }
         .question-details {
             margin-top: 0.75rem;
             margin-bottom: 0.75rem;
             border-radius: 0.375rem;
             overflow: hidden;
-            border: 1px solid #d1d5db; /* gray-300 */
+            border: 1px solid #d1d5db;
         }
         .question-details summary {
             padding: 0.6rem 1rem;
             font-weight: 600;
             cursor: pointer;
             list-style: none;
-            background-color: #e5e7eb; /* gray-200 */
-            color: #4b5563; /* gray-700 */
+            background-color: #e5e7eb;
+            color: #4b5563;
             display: flex;
             justify-content: space-between;
             align-items: center;
             transition: background-color 0.2s ease;
         }
         .question-details summary:hover {
-            background-color: #d1d5db; /* gray-300 */
+            background-color: #d1d5db;
         }
         .question-details summary::after {
             content: '+';
@@ -143,13 +144,12 @@
             color: #4a5568;
             text-align: left;
         }
-        /* Specific styles for feedback content */
         .feedback-content {
-            background-color: #dbeafe; /* blue-100 */
-            border-left: 4px solid #3b82f6; /* blue-500 */
-            color: #1e40af; /* blue-800 */
+            background-color: #dbeafe;
+            border-left: 4px solid #3b82f6;
+            color: #1e40af;
             padding: 1rem;
-            margin-top: 0.5rem; /* Space from summary */
+            margin-top: 0.5rem;
             border-radius: 0.25rem;
         }
         .feedback-content p {
@@ -159,7 +159,6 @@
             margin-bottom: 0;
         }
 
-        /* General info highlight box */
         .info-highlight {
             background-color: #e0f2fe;
             border-left: 4px solid #38bdf8;
@@ -173,32 +172,41 @@
             margin-bottom: 0;
         }
 
-        /* Useful Links Pod Styling */
-        .useful-links {
-            background-color: #f0f9ff;
-            border-left: 4px solid #3b82f6;
-            padding: 1.5rem;
-            border-radius: 0.5rem;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
+        /* Navigation Footer Container */
+        .navigation-footer {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e2e8f0;
         }
-        .useful-links h3 {
-            color: #1d4ed8;
-            margin-top: 0;
-            margin-bottom: 1rem;
+        .next-button {
+            display: inline-flex;
+            align-items: center;
+            background-color: #0284c7; /* sky-600 */
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
         }
-        .useful-links ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
+        .next-button:hover {
+            background-color: #0369a1; /* sky-700 */
+            transform: translateX(4px);
         }
-        .useful-links li a {
-            color: #2563eb;
-            text-decoration: underline;
-            transition: color 0.2s ease;
+        .next-button svg {
+            margin-left: 0.5rem;
+            width: 1.25rem;
+            height: 1.25rem;
         }
-        .useful-links li a:hover {
-            color: #1e40af;
+        .next-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-right: 0.5rem;
+            opacity: 0.9;
         }
     </style>
 </head>
@@ -209,12 +217,14 @@
 
         <p>Embracing the values of research integrity requires constant reflection on the way we, and others, conduct research, scholarly, or creative activities.</p>
 
-        <p class="info-highlight">Consider the questions, click on the hint to prompt your thoughts, then click "Feedback" to see our thoughts.</p>
+        <div class="info-highlight">
+            <p>Consider the questions, click on the hint to prompt your thoughts, then click "Feedback" to see our thoughts.</p>
+        </div>
         <p class="mb-4">Reflect on the questions and the hints, consider your response, and continue for feedback.</p>
 
 
         <div class="scenario-box">
-            <h3>Case Scenario: Elena and John</h3>
+            <h3 class="mt-0">Case Scenario: Elena and John</h3>
             <p>Consider the case of Elena, a senior undergraduate researcher working with John, a Professor of Electrical Engineering. John writes a journal article with Elena's results, but the journal rejects their submission because a relevant graph on the paper weakly supports the conclusions.</p>
         </div>
 
@@ -278,6 +288,15 @@
 
         <p class="mb-4">You might encounter irresponsible behavior in a non-research environment and will have to decide how to handle it and report it. The values associated with integrity and ethical behavior are transferrable to other aspects of life.</p>
 
+        <!-- Next Page Navigation -->
+        <div class="navigation-footer">
+            <a href="https://drykim.github.io/Research-Ethics/Best_course_of_action" class="next-button">
+                <span class="next-label">Next:</span> What is best course of action
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+            </a>
+        </div>
     </div>
 
 </body>
